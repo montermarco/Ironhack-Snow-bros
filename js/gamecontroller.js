@@ -1,95 +1,4 @@
 
-
-////////////////////////////////////////////////* -----DRAW PLATFORMS FOR LEVEL 1-----*/ 
-
-var platforms = [];
-
- // line 1.1 ___
- platforms.push({
-    x:115,
-    y:190,
-    width:115,
-    height: 1 
-});
- // line 1.2 | 
- platforms.push({
-    x:230,
-    y:145,
-    height: 45,
-    width: 1 
-});
- // line 1.3 ___
- platforms.push({
-    x:230,
-    y:145,
-    width:440,
-    height: 1 
-});
- // line 1.4 |
- platforms.push({
-    x:670,
-    y:145,
-    height:45,
-    width: 1 
-});
- // line 1.5 ___
- platforms.push({
-    x:675,
-    y:190,
-    width:110,
-    height: 1
-});
-// line 2
-platforms.push({
-    x:0,
-    y:285,
-    width:375,
-    height: 1 
-});
- // line 3
- platforms.push({
-    x:505,
-    y:285,
-    width:395,
-    height: 1 
-});
- // line 4
- platforms.push({
-    x:165,
-    y:378,
-    width:565,
-    height: 1 
-});
- // line 5
- platforms.push({
-    x:0,
-    y:470,
-    width:226,
-    height: 1 
-});
- // line 6
- platforms.push({
-    x:335,
-    y:470,
-    width:227,
-    height: 1 
-});
- // line 7
- platforms.push({
-    x:672,
-    y:470,
-    width:228,
-    height: 1 
-});
- // line 8 floor
- platforms.push({
-    x:0,
-    y:565,
-    width:900,
-    height: 1
-});
-
-
 ///////////////////////////////////////////////// Draw Platforms in canvas 
 
 function drawPlatforms(){
@@ -101,52 +10,150 @@ function drawPlatforms(){
   
 ///////////////////////////////////////////////// CHARACTER MOTION - logic & physics  
 
-  var keys = []; // for controlling
-  var friction = 0.8; // for lateral movement
-  var gravity = 0.98; // for jumping (falling)
+var keys = [];
+
+//for moving
+var friction = 0.8;
+//jump
+var gravity = 0.98;
 
 
-// this function is to control the player
+function startMode(){
+    //jump
+  if(keys[32]){
+    keys[32]=false;
+    if(!player.jumping){
+      player.ys = player.jumpStrength;
+      player.jumping = true;
+    }
+  }
+  //left & right
+  if(keys[39]){
+    if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 0.5; }
+    player.isWalkingTo = "right";
+  }
+  if(keys[37]){
+    if(player.x < 0){ player.xs = 0} else { player.xs -= 0.5;}  
+    player.isWalkingTo = "left";  
+  }
+ 
+  if(keys[83]){
+    keys[83]=false;
+    createBullet();  
+  }
+}
+
+function speedUpMode(){
+    //jump
+  if(keys[32]){
+    keys[32]=false;
+    if(!player.jumping){
+      player.ys = player.jumpStrength;
+      player.jumping = true;
+    }
+  }
+  //left & right
+  if(keys[39]){
+    if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 1.5; }
+    player.isWalkingTo = "right";
+  }
+  if(keys[37]){
+    if(player.x < 0){ player.xs = 0} else { player.xs -= 1.5;}  
+    player.isWalkingTo = "left";  
+  }
+ 
+  if(keys[83]){
+    keys[83]=false;
+    createBullet();  
+  }
+}
+
+
+
+
+
+
+
+
+
 function motion(){
+    bgimg();
+    player.draw();
+    drawPlatforms();
+    drawBullet();
+  
+  //jump
+  if(keys[32]){
+    keys[32]=false;
+    if(!player.jumping){
+      player.ys = player.jumpStrength;
+      player.jumping = true;
+    }
+  }
+  //left & right
+  if(keys[39]){
+    if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 0.5; }
+    player.isWalkingTo = "right";
+  }
+  if(keys[37]){
+    if(player.x < 0){ player.xs = 0} else { player.xs -= 0.5;}  
+    player.isWalkingTo = "left";  
+  }
+ 
+  if(keys[83]){
+    keys[83]=false;
+    createBullet();  
+  }
 
-    if(keys[38] && !Player.jumping){
-        Player.ys = -Player.jumpingStrenght * 2;
-        Player.jumping = true;
-    }
-    
-    if(keys[39] && Player.xs < Player.vel){
-        Player.xs ++;
-    }
-    
-    if(keys[37] && Player.xs > -Player.vel){
-        Player.xs --;
-    }
-    
-        // jumping (will fall smoothly)
-        Player.y += Player.ys;
-        Player.ys += gravity;
-    
-        // friction (will slow gradually)
-        Player.x += Player.xs;
-        Player.xs *= friction;
-    
-        // collitioning the platforms
-        platforms.forEach(platform =>{
-            var direction = collitionCheck(Player, platform);
-            if(direction == "left" || direction == "right"){
-                Player.xs = 0;
-            } else if( direction == "bottom"){
-                Player.jumping = false;
-                Player.grounded = true;
-            } else if ( direction == "top"){
-                Player.ys *= -1;
-            }
-        });
-            if (Player.grounded){
-                Player.ys = 0
-            };  
-        
-};
+
+
+
+
+
+
+  //jumping
+  player.y += player.ys;
+  player.ys += gravity;
+
+  //lateral movement
+  player.x += player.xs;
+  player.xs *= friction;
+
+  
+  //collition
+  player.grounded = false;
+
+  platforms.forEach(platform=>{
+    var direction = collisionCheck(player, platform);
+    if(direction == "left" || direction == "right"){
+      player.xs = 0;
+    }else if(direction == "bottom"){
+      player.jumping = false;
+      player.grounded = true;
+    }     
+    // else if(direction == "top"){
+    //   player.velY += 1;
+    // }
+  });
+  
+  if(player.grounded){
+    player.ys = 0;
+  }
+  
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 

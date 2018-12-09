@@ -9,12 +9,12 @@ var interval; // 1000/60
 var player = {
 	x: 250,
 	y: 550, //make sure to appears on the floor
-	width: 30,
-	height: 30,
-	speed: 3,
+	width: 50,
+	height: 60,
+	//speed: 6,
 	xs: 0,
 	ys: 0,
-  color: "#00cc99",
+  img: new Image(),
   
   //jump
   jumping:false,
@@ -22,10 +22,12 @@ var player = {
 
   //collition
   grounded: false,
+  isWalkingTo: "",
+
 
   draw: function(){
-		c.fillStyle = this.color;
-		c.fillRect(this.x, this.y, this.width, this.height);
+    c.drawImage(player.img, 0, 0, 66.75, 80, this.x, this.y, this.width, this.height )
+               
 	}
 }
 
@@ -128,6 +130,7 @@ function drawPlatforms(){
 //////////////////////////////////////////////LISTENERS
 
 document.body.addEventListener("keydown", function(event){
+  console.log(event.keyCode);
   keys[event.keyCode] = true;
 });
 
@@ -139,6 +142,7 @@ document.body.addEventListener("keyup", function(event){
 ///////////////////////////////////////////// GAME ENGINE
 
 window.onload = function(){
+    player.img.src = "./img/sprites/Player blue/w_right.png";
     function update() { 
         clearCanvas();
         motion();
@@ -166,10 +170,13 @@ function motion(){
     bgimg();
     player.draw();
     drawPlatforms();
+    drawBullet();
+
   
   
   //jump
-  if(keys[38]){
+  if(keys[32]){
+    keys[32]=false;
     if(!player.jumping){
       player.ys = player.jumpStrength;
       player.jumping = true;
@@ -177,10 +184,17 @@ function motion(){
   }
   //left & right
   if(keys[39]){
-    if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 1; }
+    if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 1.5; }
+    player.isWalkingTo = "right";
   }
   if(keys[37]){
-    if(player.x < 0){ player.xs = 0} else { player.xs -= 1;}    
+    if(player.x < 0){ player.xs = 0} else { player.xs -= 1.5;}  
+    player.isWalkingTo = "left";  
+  }
+ 
+  if(keys[83]){
+    keys[83]=false;
+    createBullet();  
   }
 
   //jumping
@@ -266,3 +280,44 @@ bgimg = function() {
 
 
  
+
+ 
+
+ var bullets = [];
+
+ function Bullet(){
+  this.active = true,
+  this.x = player.x + 25,
+  this.y = player.y + 0,
+  this.xs = 10,
+  this.ys = -10,
+  this.gravity = 0.9 ,
+ 
+  this.draw = function(){
+		c.fillStyle = "white";
+		c.fillRect(this.x, this.y, 10, 10);
+	}  
+}
+
+function createBullet(){
+  let bullet = new Bullet();
+  bullets.push(bullet);
+}
+
+function drawBullet(){
+if(player.isWalkingTo == "right"){
+  bullets.forEach(bullet =>{
+    bullet.x += bullet.xs;
+    bullet.y += bullet.ys;
+    bullet.ys += bullet.gravity;
+    bullet.draw();
+  })
+} else if (player.isWalkingTo == "left"){
+  bullets.forEach(bullet =>{
+    bullet.x -= bullet.xs;
+    bullet.y += bullet.ys;
+    bullet.ys += bullet.gravity;
+    bullet.draw();
+  })
+}
+}

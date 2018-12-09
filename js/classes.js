@@ -1,65 +1,118 @@
 /* -----GAMEBOARD CLASS-----*/ 
 
-function Boardgame(){
-    this.x = 0,
-    this.y = 0,
-    this.height = canvas.height,
-    this.width = canvas.width,
-
-    this.img = new Image(),
-    this.img.src = 'https://i.ibb.co/tPR1r17/SB-Level-1.jpg',
- 
-     
-    this.draw = function() { 
-        c.drawImage(this.img, this.x,this.y, this.width, this.height);
-     } 
+function Boardgame(a){
+    this.y = 0
+    this.x = 0
+    this.width = c.canvas.width
+    this.height = c.canvas.height
+    this.level= a,
+    this.bkgd = new Image()
+    
+    this.img.onload = function(){
+      this.draw()
+    }.bind(this)
+    this.draw = function(){
+    
+      c.drawImage(this.bkgd, 0, 0, this.width, this.height);
+    }
 }
+
+
+
+
 
 /* -----CHARACTER CLASS  PARENT-----*/ 
 
 
-function Player(x, y, w, h) { 
-    this.x = x,
-    this.y = y,
-    this.width = w,
-    this.height = h,
-    // speed
-    this.xs = 0, 
-    this.ys = 0;
-    this.vel = 5,
-    // jump
-    this.jumping = false,
-    this.jumpStrength = 6,
-    // collition
-    this.grounded = false,
+function Player() { 
+    this.x = 250;
+    this.y = 550;
+    this.width = 50;
+    this.height = 60;
+    this.speed = 3;
+    this.vx = 0; 
+    this.vy = 0;
     
-    // this.img = new Image(),
-    // this.img.src = 'https://i.ibb.co/tPR1r17/SB-Level-1.jpg',     
-    // this.draw = function() { 
-    //     c.drawImage(this.img, this.x,this.y, this.width, this.height);
-    //  } 
+    this.grounded = false,
+    this.jumping = false,
+    this.jumpStrength = -15,
+    this.gravity = 0.98;
+    this.isWalking = true;
+    this.isWalkingTo = "";
+    this.friction = 0.8;
+    this.mode = "start";
+    
+    
+    this.img = new Image(),
+    this.img.src = "./img/sprites/Player blue/w_right.png";
 
-    // drawing the player ------- using a square before setting sprites
     this.draw = function(){
-    c.fillStyle = this.color
-    c.fillRect(this.x, this.y, this.height, this.width)
-    }
+        c.drawImage(this.img, 0, 0, 66.75, 80, this.x, this.y, this.width, this.height);
+      }
 
+    this.img.onload = function(){}  
 };
 
-///////////////////////////// PLAYER 1 - INSTANCE OF CHARACTER ////////////////////////////////////
 
-// function Player1() {
-//     Character.call(this, x, y, w, h);
+function Bullet(){
+    this.active = true,
+    this.x = player.x + 25,
+    this.y = player.y + 0,
+    this.xs = 10,
+    this.ys = -10,
+    this.gravity = 0.9,
+    this.range = "";
+    this.speed = "";
+    this.shoot = "";
+   
+    this.draw = function(){
+          c.fillStyle = "white";
+          c.fillRect(this.x, this.y, 10, 10);
+      }  
+  }
+  
+  function createBullet(){
+    let bullet = new Bullet();
+    bullets.push(bullet);
+  }
+  
+  function drawBullet(){
+    if(player.isWalkingTo == "right"){
+      bullets.forEach(bullet =>{
+        bullet.x += bullet.xs;
+        bullet.y += bullet.ys;
+        bullet.ys += bullet.gravity;
+        bullet.draw();
+      })
+    } else if (player.isWalkingTo == "left"){
+      bullets.forEach(bullet =>{
+        bullet.x -= bullet.xs;
+        bullet.y += bullet.ys;
+        bullet.ys += bullet.gravity;
+        bullet.draw();
+      })
+    }
+    }
+  
+  Bullet.prototype.sartMode = function(){
+    if(player.isWalkingTo == "right"){
+        bullets.forEach(bullet =>{
+          bullet.x += bullet.xs;
+          bullet.y += bullet.ys;
+          bullet.ys += bullet.gravity;
+          bullet.draw();
+        })
+      } else if (player.isWalkingTo == "left"){
+        bullets.forEach(bullet =>{
+          bullet.x -= bullet.xs;
+          bullet.y += bullet.ys;
+          bullet.ys += bullet.gravity;
+          bullet.draw();
+        })
+      }
+  }
 
-//     this.draw = function(){
-//         c.fillStyle = this.color
-//         c.fillRect(400, 300, 40, 40)
-//         }
-// };
+
+ //////////////////////////////////////////////////////////////////
 
 
-// Player1.prototype = Object.create(Character.prototype);
-// Player1.prototype.constructor = Player1;
-
-console.log(Player.xs)
