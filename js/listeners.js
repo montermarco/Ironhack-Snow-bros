@@ -22,13 +22,13 @@
 //   });
   
 document.body.addEventListener("keydown", function(event){
-    console.log(event.keyCode + "key down");
+    console.log(event.keyCode + " key down");
     keys[event.keyCode] = true;
   });
   
   document.body.addEventListener("keyup", function(event){
       keys[event.keyCode] = false;
-      console.log(event.keyCode + "key up");
+      console.log(event.keyCode + " key up");
   });
   
   

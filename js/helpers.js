@@ -2,79 +2,123 @@
 
 //Creating levels 
 
-var levelOne = platforms.filter(platform => platform.level == "one");
-var levelTwo = platforms.filter(platform => platform.level == "two");
-var levelThree = platforms.filter(platform => platform.level == "three");
-var levelFour = platforms.filter(platform => platform.level == "four");
+// var levelOne = platforms.filter(platform => platform.level == "one");
+// var levelTwo = platforms.filter(platform => platform.level == "two");
+// var levelThree = platforms.filter(platform => platform.level == "three");
+// var levelFour = platforms.filter(platform => platform.level == "four");
 
 // Drawing thelevels -  The wanted level must be passed as the function argument   
 
-function drawLevel(array){
-  c.fillStyle = "red";
-  array.forEach(arr =>{
-    c.fillRect(arr.x, arr.y, arr.width, 3)
+// function drawLevel(array){
+//   c.fillStyle = "red";
+//   array.forEach(arr =>{
+//     c.fillRect(arr.x, arr.y, 20, 20)
+//   });
+// }
+
+function drawPlatforms(){
+  //c.fillStyle = "black";
+  platforms.forEach(platform=>{
+    c.fillRect(platform.x, platform.y, platform.width, 0);
   });
 }
 
 
+/* -----Player motion-----*/ //this part was move to draft for testing
 
-/* -----Player motion-----*/ 
-
-function playerMovement(){
+function playerMovement() { 
+   
   //jump
-  if(keys[32]){
-      //keys[32]=false;
-      player.jump();   
+    if(keys[32]){
+      keys[32]=false;
+      if(!player.jumping){
+        player.ys = player.jumpStrength;
+        player.jumping = true;
+      }
     }
-    ///////////////////////////////////////////////////////MOVE RIGHT
+    //left & right
     if(keys[39]){
-      //keys[39] = false;
-        player.right();
-        player.accion = 1;
+      keys[39]=false;
+      if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 1; }
+      player.isWalkingTo = "right";
+      player.action = 1
     }
-    /////////////////////////////////////////////////////MOVE LEFT
     if(keys[37]){
-      //keys[37] = false;
-       player.left();
-       player.accion = 1;
-         
+      keys[37]=false;
+      if(player.x < 0){ player.xs = 0} else { player.xs -= 1;}  
+      player.isWalkingTo = "left";
+      player.cation = 2  
     }
-    /////////////////////////////////////////////////SHOOTING
+  
     if(keys[83]){
       keys[83]=false;
       createBullet();  
     }
-      
+
     //jumping
     player.y += player.ys;
     player.ys += gravity;
+
     //lateral movement
     player.x += player.xs;
     player.xs *= friction;
-  
+    
     //collition
     player.grounded = false;
-  
-};
+    
+      platforms.forEach(platform=>{
+      var direction = collisionCheck(player, platform);
+      if(direction == "bottom"){
+        player.jumping = false;
+        player.grounded = true;
+      }     
+    });
 
-
-function isTouching (char, plat){
-  return (char.x < plat.x + plat.width) &&
-          (char.x + char.width  > plat.x) &&
-          (char.y < plat.y + plat.height) &&
-          (char.y + char.height > plat.y)  
-}   
-
-function collitionCheck(){ 
-  platforms.forEach(platform => {
-      if(isTouching(player, platform)){
-          player.y = platform.y - player.height;
-          player.grounded = true;
-          player.ys = 0;
-      }
-  });
+    if(player.grounded){
+      player.ys = 0;
+    }
 }
 
+   
+
+function collisionCheck(char, plat){
+
+  // this is how the player would appear, if removing widht/2 the player appears in the middle of the lines
+  
+  var vectorX = (char.x + (char.width/2)) - (plat.x + (plat.width/2)); // middle pints x 
+  var vectorY = (char.y + (char.height/2)) - (plat.y + (plat.height/2)); // midle pints y
+  
+  var halfWidths = (char.width/2) + (plat.width/2); 
+  var halfHeights = (char.height/2) + (plat.height/2);
+  
+  var collisionDirection = null;
+  
+  //Offset  - the amount or distance the which player is out of line.
+  //Vector - determining the position of one point in space relative to another by center
+
+  if(Math.abs(vectorX) < halfWidths && Math.abs(vectorY) < halfHeights){
+    var offsetX = halfWidths - Math.abs(vectorX); 
+    var offsetY = halfHeights - Math.abs(vectorY);
+    if(offsetX < offsetY){
+      if(vectorX > 0){
+        //collisionDirection = "right";
+        char.x += offsetX;
+      }else{
+        //collisionDirection = "left";
+        char.x -= offsetX;
+      }
+    }else{
+      if(vectorY > 0){
+        //collisionDirection = "top"
+        //char.y += offsetY;
+      }
+        collisionDirection = "bottom";
+        char.y -= offsetY;
+      }
+  }
+  return collisionDirection;
+  
+}
 
 
 

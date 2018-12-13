@@ -838,3 +838,485 @@ function collitionCheck(){
       this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_left.png";
       break;
   } 
+
+
+
+// moving functions from player
+
+
+this.jump = () => {
+        if(!this.jumping){
+          this.ys = this.jumpStrength;
+          this.y += this.ys;
+          this.jumping = true;
+        }
+        this.isWalkingTo = "up"
+      } 
+
+      this.right = () => {
+        this.isWalkingTo ="right"
+        if(this.x + this.width > c.canvas.width){
+          this.xs = 0;
+        } else {
+          player.xs += 1;
+        }
+      }
+
+      this.left = () => {
+        this.isWalkingTo = "left"
+        if(this.x < 0){ 
+          this.x = 0;
+        } else {
+          this.xs -= 1;
+        }
+      }
+
+function playerMovement(){
+  //jump
+  if(keys[32]){
+      keys[32]=false;
+      player.jump();
+    }
+    ///////////////////////////////////////////////////////MOVE RIGHT
+    if(keys[39]){
+      keys[39] = false;
+        player.right();
+        player.accion = 1;
+    }
+    /////////////////////////////////////////////////////MOVE LEFT
+    if(keys[37]){
+      keys[37] = false;
+       player.left();
+       player.accion = 1;
+         
+    }
+    /////////////////////////////////////////////////SHOOTING
+    if(keys[83]){
+      keys[83]=false;
+      createBullet();  
+    }
+      
+    //jumping
+    player.y += player.ys;
+    player.ys += gravity;
+    //lateral movement
+    player.x += player.xs;
+    player.xs *= friction;
+  
+    //collition
+    player.grounded = false;
+  
+};
+
+
+
+function isTouching (char, plat){
+  return (char.x < plat.x + plat.width) && //player bottom x / plat 
+          (char.x + char.width  > plat.x) &&
+          (char.y < plat.y + plat.height) &&
+          (char.y + char.height > plat.y)  
+}   
+
+
+
+platforms.forEach(platform=>{
+    var direction = collisionCheck(char, platf);
+    if(char.x < plat.x + plat.widht)
+})
+
+
+
+platforms.forEach(platform=>{
+    var direction = collisionCheck(player, platform);
+    if(direction == "left" || direction == "right"){
+      player.xs = 0;
+    }else if(direction == "bottom"){
+      player.jumping = false;
+      player.grounded = true;
+    }     
+    // else if(direction == "top"){
+    //   player.velY += 1;
+    // }
+  });
+  
+  if(player.grounded){
+    player.ys = 0;
+  }
+     
+
+      if(vectorX > 0){
+        collisionDirection = "left";
+        char.x += offsetX;
+      }else{
+        collisionDirection = "right";
+        char.x -= offsetX;
+      }
+    }else{
+      if(vectorY > 0){
+        collisionDirection = "top"
+        //char.y += offsetY;
+      }
+        collisionDirection = "bottom";
+        char.y -= offsetY;
+      }
+  }
+  return collisionDirection;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ///////////////////////////////////* -----PLATFORMS LEVEL TWO -----*/ 
+  
+  // line 1
+  platforms.push({
+      level: "two",
+      plat: 1,
+      x:172,
+      y:95,
+      width:388,
+      height: 1 
+  });
+   // line 2 
+   platforms.push({
+      level: "two",
+      plat: 2,
+      x:673,
+      y:95,
+      height: 1,
+      width: 114 
+  });
+   // line 3
+   platforms.push({
+      level: "two",
+      plat: 3,
+      x:673,
+      y:95,
+      width:1,
+      height: 87 
+  });
+   // line 4 
+   platforms.push({
+      level: "two",
+      plat: 4,
+      x:342,
+      y:188,
+      height:1,
+      width: 331 
+  });
+   // line 5 ___
+   platforms.push({
+      level: "two",
+      plat: 5,
+      x:112,
+      y:188,
+      width:114,
+      height: 1
+  });
+  // line 6
+  platforms.push({
+      level: "two",
+      plat: 6,
+      x:226,
+      y:188,
+      width:1,
+      height: 87
+  });
+   // line 7
+   platforms.push({
+      level: "two",
+      plat: 7,
+      x:226,
+      y:280,
+      width:334,
+      height: 1 
+  });
+   // line 8
+   platforms.push({
+      level: "two",
+      plat: 8,
+      x:673,
+      y:280,
+      width:114,
+      height: 1 
+  });
+   // line 9
+   platforms.push({
+      level: "two",
+      plat: 9,
+      x:673,
+      y:290,
+      width:1,
+      height: 87 
+  });
+   // line 10
+   platforms.push({
+      level: "two",
+      plat: 10,
+      x:342,
+      y:373,
+      width:331,
+      height: 1 
+  });
+   // line 11
+   platforms.push({
+      level: "two",
+      plat: 11,
+      x:112,
+      y:373,
+      width:114,
+      height: 1 
+  });
+   // line 12
+   platforms.push({
+      level: "two",
+      plat: 12,
+      x:226,
+      y:373,
+      width:1,
+      height: 87
+  });
+   // line 13
+   platforms.push({
+      level: "two",
+      plat: 13,
+      x:226,
+      y:465,
+      width:500,
+      height: 1
+  });
+   // line 14 Floor
+   platforms.push({
+      level: "two",
+      plat: 14,
+      x:0,
+      y:560,
+      width:900,
+      height: 1
+  });
+  
+ ////////////////////////////////// /* -----PLATFORMS LEVEL THREE -----*/ 
+  
+  // line 1
+  platforms.push({
+      level: "three",
+      plat: 1,
+      x:170,
+      y:95,
+      width:555,
+      height: 1 
+  });
+   // line 2 
+   platforms.push({
+      level: "three",
+      plat: 2,
+      x:0,
+      y:190,
+      width: 113,
+      height: 1 
+  });
+   // line 3
+   platforms.push({
+      level: "three",
+      plat: 3,
+      x:222,
+      y:190,
+      width:452,
+      height: 1 
+  });
+   // line 4 
+   platforms.push({
+      level: "three",
+      plat: 4,
+      x:789,
+      y:190,
+      width:111,
+      height:1
+       
+  });
+   // line 5 ___
+   platforms.push({
+      level: "three",
+      plat: 5,
+      x:0,
+      y:285,
+      width:60,
+      height: 1
+  });
+  // line 6
+  platforms.push({
+      level: "three",
+      plat: 6,
+      x:170,
+      y:285,
+      width:114,
+      height: 1
+  });
+   // line 7
+   platforms.push({
+      level: "three",
+      plat: 7,
+      x:394,
+      y:285,
+      width:112,
+      height: 1 
+  });
+   // line 8
+   platforms.push({
+      level: "three",
+      plat: 8,
+      x:619,
+      y:285,
+      width:111,
+      height: 1 
+  });
+   // line 9
+   platforms.push({
+      level: "three",
+      plat: 9,
+      x:844,
+      y:285,
+      width:56,
+      height: 1 
+  });
+   // line 10
+   platforms.push({
+      level: "three",
+      plat: 10,
+      x:0,
+      y:375,
+      width:60,
+      height: 1 
+  });
+   // line 11
+   platforms.push({
+      level: "three",
+      plat: 11,
+      x:394,
+      y:375,
+      width:112,
+      height: 1 
+  });
+   // line 12
+   platforms.push({
+      level: "three",
+      plat: 12,
+      x:844,
+      y:375,
+      width:56,
+      height: 1
+  });
+   // line 13
+   platforms.push({
+      level: "three",
+      plat: 13,
+      x:0,
+      y:470,
+      width:170,
+      height: 1
+  });
+   // line 14
+   platforms.push({
+      level: "three",
+      plat: 14,
+      x:284,
+      y:470,
+      width:335,
+      height: 1
+  });
+   // line 15
+   platforms.push({
+      level: "three",
+      plat: 15,
+      x:730,
+      y:470,
+      width:170,
+      height: 1
+  });
+   // line 16
+   platforms.push({
+      level: "three",
+      plat: 16,
+      x:0,
+      y:565,
+      width:900,
+      height: 1
+  });
+  
+ ///////////////////////////////////* -----PLATFORMS LEVEL FOUR -----*/ 
+  
+  // line 1
+  platforms.push({
+      level: "four",
+      plat: 1,
+      x:0,
+      y:190,
+      width:390,
+      height: 1 
+  });
+   // line 2 
+   platforms.push({
+      level: "four",
+      plat: 2, 
+      x:170,
+      y:285,
+      width:330,
+      height: 1 
+  });
+   // line 3
+   platforms.push({
+      level: "four",
+      plat: 3,
+      x:0,
+      y:375,
+      width:390,
+      height: 1 
+  });
+   // line 4 
+   platforms.push({
+      level: "four",
+      plat: 4,
+      x:170,
+      y:467,
+      width:330,
+      height:1
+       
+  });
+   // line 5 
+   platforms.push({
+      level: "four",
+      plat: 5,
+      x:620,
+      y:330,
+      width:280,
+      height: 1
+  });
+  // line 6 
+  platforms.push({
+      level: "four",
+      plat: 6,
+      x:0,
+      y:560,
+      width:900,
+      height: 1
+  });
+  
+
+
+
+
+

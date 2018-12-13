@@ -29,80 +29,99 @@ function Player(){
     this.height = this.spriteheight / this.sprRows
     this.xs = 0
     this.ys = 0
-    this.xsrc;
-    this.ysrc = 0
     this.curFrame = 0;
     //jump & collition
     this.jumping = false
     this.jumpStrength = -15
+    
     this.grounded = false
-    this.isWalkingTo = "right"
-    this.action = 1
+    this.isWalkingTo = ""
+    this.action; 
     this.mode = "start mode"
+    
     this.img = new Image()
-    //this.img.src = "./img/sprites/snow_wr.png",
     this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_right2.png"
-    this.img.onload = function () {
-      this.drawImage()
-    }.bind(this);
-
-    // this.draw = function(){
-    //     c.drawImage(this.img, 0, 0, 66.75, 80, this.x, this.y, this.width, this.height )
-    // }
-
+   
     this.drawImage = function(){
-      
-      
-       
-        c.drawImage(this.img, 0+(this.spriteWidth/5*this.curFrame), 0, 65, 80, this.x, this.y, this.width, this.height);
-        
-    }
+      switch(this.isWalkingTo){
+    case "right":
+    
+    this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_right2.png"  
+    if(keys[39]){
+      this.curFrame++;
+      }if(this.curFrame == this.sprCols){
+        this.curFrame = -1
+      }  
+    console.log(this.y, this.x, this.width, this.height)
+      break;
 
-      this.jump = () => {
-        if(!this.jumping){
-          this.ys = this.jumpStrength;
-          this.y += this.ys;
-          this.jumping = true;
-        }
-        this.isWalkingTo = "up"
+    case "left":
+      this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_left2.png"
+      if(keys[37]){
+      this.curFrame++;
+      } if(this.curFrame == this.sprCols){
+        this.curFrame = -1
+      }
+      break;
       } 
-
-      this.right = () => {
-        this.isWalkingTo ="right"
-        if(this.x + this.width > c.canvas.width){
-          this.xs = 0;
-        } else {
-          player.xs += 1;
-        }
-      }
-
-      this.left = () => {
-        this.isWalkingTo = "left"
-        if(this.x < 0){ 
-          this.x = 0;
-        } else {
-          this.xs -= 1;
-        }
-      }
-
-     
-
+        c.drawImage(this.img, 0+(this.spriteWidth/5*this.curFrame), 0, 65, 80, this.x, this.y, this.width, this.height);
+    }
+  
 }
 
 /* -----BULLETS-----*/
 
 function Bullet(){
-  this.x = player.x + 50,
-  this.y = player.y + 15,
-  this.xs = 7,
-  this.ys = -7  ,
-  this.gravity = 0.9 ,
-  
+  this.x = player.x + 50
+  this.y = player.y + 15
+  this.xs = 7
+  this.ys = -7  
+  this.gravity = 0.9 
+  this.bullet = ""
+  this.range = "short"
+  this.spriteWidth = 82
+  this.spriteheight = 42
+  this.sprCols = 2
+  this.sprRows = 1
+  this.width = this.spriteWidth / this.sprCols
+  this.height = this.spriteheight / this.sprRows
+
+
   this.draw = function(){
-        c.fillStyle = "white";
-        c.fillRect(this.x, this.y, 10, 10);
+        c.fillStyle = "red";
+        c.fillRect(this.x, this.y, 12, 12);
     }  
+
+
+  // this.img = new Image() // default bullet right short b1
+  // this.img.src = "./img/Snow_bro/bullets/bulletone_right2.png"
+  
+  // this.draw = function(){
+
+  //     switch(this.isWalkingTo){
+  //     case "right":
+  //     this.img.src = "./img/Snow_bro/bullets/bulletone_right2.png"  
+      
+  //     if(keys[39]){
+  //     this.curFrame++;}
+  //     if(this.curFrame == this.sprCols){
+  //       this.curFrame = -1
+  //     }  
+  //     break;
+
+  //     case "left":
+  //     this.img.src = "./img/Snow_bro/bullets/bulletone_left2.png"
+  //     if(keys[37]){
+  //     this.curFrame++;
+  //     } if(this.curFrame == this.sprCols){
+  //       this.curFrame = -1
+  //     }
+  //     break;
+  //     } 
+  //       c.drawImage(this.img, 0+(this.spriteWidth/5*this.curFrame), 0, 65, 80, this.x, this.y, this.width, this.height);
+  // }  
 }
+
 
 /* -----ENEMIES-----*/ 
 
