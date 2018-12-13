@@ -638,15 +638,90 @@ if(player.isWalkingTo == "right"){
 
 switch(level){
   case 1:
-  this.bkgd.src = 'https://i.ibb.co/tPR1r17/SB-Level-1.jpg';
+  Boardgame.bkgd.src = 'https://i.ibb.co/tPR1r17/SB-Level-1.jpg';
   break;
   case 2:
-  this.bkgd.src = 'https://i.ibb.co/zVwt6hF/SB-Level-2.jpg';
+  Boardgame.bkgd.src = 'https://i.ibb.co/zVwt6hF/SB-Level-2.jpg';
   break;
   case 3:
-  this.bkgd.src = 'https://i.ibb.co/m5kPX7B/SB-Level-3.jpg';
+  Boardgame.bkgd.src = 'https://i.ibb.co/m5kPX7B/SB-Level-3.jpg';
   break;
   case 4:
-  this.bkgd.src = 'https://i.ibb.co/K65GTKm/SB-Level-4-Final.jpg';
+  Boardgame.bkgd.src = 'https://i.ibb.co/K65GTKm/SB-Level-4-Final.jpg';
   break;       
 }  
+
+
+
+
+
+function runningMotherFucker(){
+  //this.x = 550;
+  //this.y = 230;
+  // this.srcX;
+  // this.srcY;
+
+  // this.sheetWidth = 2046;
+  // this.sheetHeight = 250;
+
+  //this.gravity = 5;
+
+  //this.yVelocity = 0; 
+  //this.xVelocity = 0;
+
+  //this.isJumping = false;    
+
+  //this.frameCountCols = 8; // the number of frames in the frame sheet 
+  //this.frameCountRows = 1;
+  
+  //this.width = this.sheetWidth / this.frameCountCols;
+  //this.height = this.sheetHeight / this.frameCountRows;
+  //this.currentFrame = 0;  
+  
+  this.runner = new Image();
+  this.runner.src = "images/mariachi/mariachiSprite.png"
+  this.runner.onload = function(){
+                          this.drawImage()
+                      }.bind(this)
+
+  // this.jump = function(){     
+  //     this.y -= 180;
+  //     this.isJumping = true;
+  // }
+
+  this.hitBottom = function(){
+      this.ground = 230;
+      if (this.y  > this.ground) {
+          this.isJumping = false;
+          this.y = this.ground;
+          this.yVelocity = 1;
+      }
+      clearInterval(this.interval)
+  }
+
+  this.drawImage = function(){
+      this.updateFrame();
+      ctx.drawImage(this.runner, this.srcX, this.srcY, this.width, this.height, this.x, this.y, this.width, this.height );
+      this.yVelocity -= 1;
+      this.y -= this.yVelocity;
+      this.yVelocity *= 0.90;  
+  }
+
+  this.updateFrame = function(){
+      this.currentFrame =++ this.currentFrame % this.frameCountCols; // 1 % 8 = 1, 2 % 8 = 2, ...., 8 % 8 = 1.
+      this.srcX = this.currentFrame * this.width;
+      this.srcY = 0;
+      this.hitBottom();
+  }
+
+  this.isTouching = function(brick){
+      return (this.x + 40 < brick.x + brick.width) &&
+             (this.x + this.width - 40> brick.x)  &&
+             (this.y < brick.y + brick.height) &&
+             (this.y + this.height > brick.y)
+  }
+  //console.log(this.width);
+
+
+  this.interval = setInterval(this.drawImage(), 1000)
+}

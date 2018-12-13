@@ -1,25 +1,36 @@
-// canvas.addEventListener('keydown', function(e){
+//////////////////////////////////////////////LISTENERS
+
+// document.body.addEventListener("keydown", (e) => {
 //     switch(e.keyCode){
-//         case 38:
-//         player.jump()
-//         break;
-//         case 37:
-//         player.left()
-//         case 39:
-//         player.right()
-//         break;
-//         case 32:
-//         player.attack()
-//         break;
-//     }
-// });
 
-
-document.body.addEventListener("keydown", function(e){
+//         case keys[32] || keys[38]:
+//         player.isWalkingTo = "up";
+//         player.jump();
+//         break;
+//         case [39]:
+//         player.isWalkingTo = "right";
+//         player.right();
+//         break;
+//         case [37]:
+//         player.isWalkingTo = "left";
+//         player.left();
+//         break;
+//         case [83]:
+//         createBullet();
+//         break;
+//     } 
+//   });
+  
+document.body.addEventListener("keydown", function(event){
+    console.log(event.keyCode + "key down");
     keys[event.keyCode] = true;
-});
+  });
+  
+  document.body.addEventListener("keyup", function(event){
+      keys[event.keyCode] = false;
+      console.log(event.keyCode + "key up");
+  });
+  
+  
 
-document.body.addEventListener("keyup", function(e){
-    keys[event.keyCode] = false;
-});
 

@@ -171,8 +171,8 @@ function motion(){
     player.draw();
     drawPlatforms();
     drawBullet();
-    // createEnemie();
-    // drawEnemie();
+    createEnemie();
+    drawEnemie();
   
   
   //jump
@@ -327,34 +327,34 @@ if(player.isWalkingTo == "right"){
 /////////////////////////////////////////////////////////////////////////////////////////////ENEMIES    
 
 
-// var enemies = [ ];
+var enemies = [ ];
 
-// function Enemie(type){
-//     this.type = type,
-//     this.x = c.canvas.width / 3,
-//     this.y = c.canvas.height / 3,
-//     this.xs = 5,
-//     this.ys = 5,
-//     this.width = 20,
-//     this.height = 20,
-//     this.gravity = 0.9,
+function Enemie(type){
+    this.type = type,
+    this.x = c.canvas.width / 3,
+    this.y = c.canvas.height / 3,
+    this.xs = 5,
+    this.ys = 5,
+    this.width = 20,
+    this.height = 20,
+    this.gravity = 0.9,
       
-//       this.draw = function(){
-//           c.fillStyle = "red";
-//           c.fillRect(this.x, this.y, 30, 30);
-//       }  
-//   }
+      this.draw = function(){
+          c.fillStyle = "red";
+          c.fillRect(this.x, this.y, 30, 30);
+      }  
+  }
   
-// function createEnemie(){
-//   let enemie = new Enemie();
-//   enemies.push(enemie);
-// }
+function createEnemie(){
+  let enemie = new Enemie();
+  enemies.push(enemie);
+}
 
 
-// function drawEnemie(){
-//   enemies.forEach(enemie=>{
-//   enemie.draw();
-// });
-// }
+function drawEnemie(){
+  enemies.forEach(enemie=>{
+  enemie.draw();
+});
+}
 
 

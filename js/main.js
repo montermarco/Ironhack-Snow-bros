@@ -1,27 +1,30 @@
+
+///////////////////////////////////////////// GAME ENGINE
+
 window.onload = function(){
-    function update () {
-        frames ++;
-        motion(); // moves the player
-        clearCanvas();// 
-        boardgame.draw(); // draws the level 
-        playerOne.draw(); // draws the player
-        drawPlatforms();  // draws the platforms  
-                        
+    function update() { 
+        clearCanvas(); // update first call
+        boardgame.draw() // 2nd call - goes directly to Boardgame class/constructor
+        drawLevel(levelOne); // 3rd - from helpers, drawLevel
+        player.drawImage(); // goes to this.action 
+        playerMovement()
+        collitionCheck()
+        drawBullet(); // goes to drawBullet which contains the bullet direction properties;
         
-    }   
-    update();
+     }
+    update(); // this is the first function it runs
 
-
-    function startGame(){
-        interval = setInterval(update, 1000/60)
-    }
-
-
-    function gameOver(){
-        clearInterval(interval)
-        interval = 0;
-        c.font = "50px Arial";
-        c.fillText("GAME OVER", 450, 300);
+     function startGame() { 
+     interval = setInterval(update,1000/60)
     }
     startGame();
 }
+
+
+// window.onload = function(){
+//     player.draw();
+// }
+
+
+//modulos %==2 para mover izq o der
+
