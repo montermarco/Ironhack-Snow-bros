@@ -129,7 +129,7 @@ function Bullet(){
 
 /* -----ENEMIES-----*/ 
 
-////////////////////////////////////////////ENEMIE 1
+////////////////////////////////////////////ENEMIE 1  right BLUE
 function Enemie(){
   //this.type = type,
   this.x = (Math.random() * (c.canvas.width / 4)),
@@ -139,11 +139,21 @@ function Enemie(){
   this.number = 1,
   this.xs = 0,
   this.ys = 0,
-  this.width = 20,
-  this.height = 20,
+  //this.width = 20,
+  //this.height = 20,
   this.gravity = 0.9,
   this.grounded = false
+
+  this.spriteWidth = 726
+  this.spriteheight = 86
+  this.sprCols = 7
+  this.sprRows = 1
+  this.width = this.spriteWidth / this.sprCols
+  this.height = this.spriteheight / this.sprRows
+  this.curFrame = 0;
   
+  this.img = new Image() // lines added
+  this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
  
   this.drawInicial = function(){
     if(this.y == this.yFinal)return;
@@ -151,29 +161,59 @@ function Enemie(){
     if(this.y){
       this.ys ++;
     };
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, this.x, this.y, 62, 90);
     }  
 
   this.draw = function(){
+    this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png"
     this.x = 130
-    this.x = this.x -1 
+    this.x = this.x -1
+    this.currFrame ++;
+    //if(this.curFrame > this.sprCols){this.curFrame = 0} 
     //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
+    //c.fillStyle = "black";
+    //c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);       
     }  
 
+
+
+  
+    
    this.isTouching = function (platform) {
     return (this.x < platform.x + platform.width)  &&
            (this.x + this.width > platform.x)  &&
            (this.y < platform.y + platform.height) &&
            (this.y + this.height > platform.y)
    }
+    /* -----here starts function to copy-----*/ 
 
+  
+  
+  // this.draw = function(){
+    
+  //   switch(player.isWalkingTo){
+  //     case "right":
+  //       this.img.src = "./img/Snow_bro/bullets/bulletone_right2.png";
+  //       this.curFrame++;
+  //       if(this.curFrame > this.sprCols){
+  //          this.curFrame = 0;
+  //       }
+  //     break;
+  //     case "left":
+  //      this.img.src = "./img/Snow_bro/bullets/bulletone_left2.png";
+  //      this.curFrame++;
+  //     if(this.curFrame > this.sprCols){
+  //        this.curFrame = 0;
+  //       }  
+  //     break;
+  //   }    
+  //  c.drawImage(this.img, 0+(this.spriteWidth/2*this.curFrame), 0, 42, 42, this.x, this.y, this.width, this.height);       
+  // }
 }
 
 
-////////////////////////////////////////////ENEMIE 2
+////////////////////////////////////////////ENEMIE 2 left RED
 function EnemieTwo(){
   //this.type = type,
   this.x = Math.random() * c.canvas.width,
@@ -194,14 +234,18 @@ function EnemieTwo(){
 
   }
  
+  this.img = new Image() // lines added
+  this.img.src = "./img/wizz_red/r_wizz_jump_left3.png"
+ 
   this.drawInicial = function(){
-    if(this.y == this.yFinal) return;
+    if(this.y == this.yFinal)return;
     this.y++;
     if(this.y){
       this.ys ++;
     };
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
+    //c.fillStyle = "blue";
+    //c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, this.x, this.y);
     }  
 
   this.draw = function(){
@@ -222,7 +266,7 @@ function EnemieTwo(){
 }
 
 
-////////////////////////////////////////////ENEMIE 3
+////////////////////////////////////////////ENEMIE 3 right BLUE 
 function EnemieThree(){
   //this.type = type,
   this.x = Math.random() * c.canvas.width,
@@ -243,15 +287,19 @@ function EnemieThree(){
 
   }
  
+  this.img = new Image() // lines added
+  this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
+ 
   this.drawInicial = function(){
-    if(this.y == this.yFinal) return;
+    if(this.y == this.yFinal)return;
     this.y++;
     if(this.y){
       this.ys ++;
     };
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
+    //c.fillStyle = "blue";
+    //c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, this.x, this.y);
+    }    
 
   this.draw = function(){
     this.x = 100
@@ -271,7 +319,7 @@ function EnemieThree(){
 }
 
 
-////////////////////////////////////////////ENEMIE 4 left
+////////////////////////////////////////////ENEMIE 4 left RED
 function EnemieFour(){
   //this.type = type,
   this.x = Math.random() * c.canvas.width,
@@ -292,15 +340,19 @@ function EnemieFour(){
 
   }
  
+  this.img = new Image() // lines added
+  this.img.src = "./img/wizz_red/r_wizz_jump_left3.png"
+ 
   this.drawInicial = function(){
-    if(this.y == this.yFinal) return;
+    if(this.y == this.yFinal)return;
     this.y++;
     if(this.y){
       this.ys ++;
     };
-    c.fillStyle = "red";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
+    //c.fillStyle = "blue";
+    //c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, this.x, this.y);
+    } 
 
   this.draw = function(){
     this.x = 680
@@ -320,7 +372,7 @@ function EnemieFour(){
 }
 
 
-////////////////////////////////////////////ENEMIE 5 right
+////////////////////////////////////////////ENEMIE 5 right BLUE
 function EnemieFive(){
   //this.type = type,
   this.x = Math.random() * c.canvas.width,
@@ -341,15 +393,19 @@ function EnemieFive(){
 
   }
  
+  this.img = new Image() // lines added
+  this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
+ 
   this.drawInicial = function(){
-    if(this.y == this.yFinal) return;
+    if(this.y == this.yFinal)return;
     this.y++;
     if(this.y){
       this.ys ++;
     };
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
+    //c.fillStyle = "blue";
+    //c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, this.x, this.y);
+    }    
 
   this.draw = function(){
     this.x = 430
@@ -368,7 +424,7 @@ function EnemieFive(){
 
 }
 
-////////////////////////////////////////////ENEMIE 6 left
+////////////////////////////////////////////ENEMIE 6 left RED
 function EnemieSix(){
   //this.type = type,
   this.x = Math.random() * c.canvas.width,
@@ -389,14 +445,18 @@ function EnemieSix(){
 
   }
  
+  this.img = new Image() // lines added
+  this.img.src = "./img/wizz_red/r_wizz_jump_left3.png"
+ 
   this.drawInicial = function(){
-    if(this.y == this.yFinal) return;
+    if(this.y == this.yFinal)return;
     this.y++;
     if(this.y){
       this.ys ++;
     };
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
+    //c.fillStyle = "blue";
+    //c.fillRect(this.x, this.y, 30, 30);
+    c.drawImage(this.img, this.x, this.y);
     }  
 
   this.draw = function(){
