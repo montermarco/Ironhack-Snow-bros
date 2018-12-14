@@ -1551,5 +1551,24 @@ function wizzMovement() {
   }
 }
 
+
+function drawEnemies() { 
+
+drawEnemie();
+        drawEnemieTwo();
+        drawEnemieThree();
+        drawEnemieFour();
+        drawEnemieFive();
+        drawEnemieSix();
   
-  
+    }
+
+
+function createEnemies() { 
+createEnemie();
+createEnemieTwo();
+createEnemieThree();
+createEnemieFour();
+createEnemieFive();
+createEnemieSix();
+}

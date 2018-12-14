@@ -11,20 +11,15 @@ window.onload = function(){
         drawBullet(); // goes to drawBullet which contains the bullet direction properties;
         playerMovement()
        /* -----enemies-----*/ 
-        drawEnemie();
-        drawEnemieTwo();
-        drawEnemieThree();
-        drawEnemieFour();
-        drawEnemieFive();
+       drawEnemies();
+       //createEnemies(); 
+       
+       
      }
     update(); // this is the first function it runs
 
      function startGame() { 
-      createEnemie();
-      createEnemieTwo();
-      createEnemieThree();
-      createEnemieFour();
-      createEnemieFive();
+      createEnemies();
      interval = setInterval(update,1000/60)
     }
     startGame();

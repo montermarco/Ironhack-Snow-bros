@@ -223,23 +223,24 @@ function drawEnemie(){
 });
 }
 
-/* -----ENEMIE TWO LEFT-----*/ 
+/* -----ENEMIE TWO LEFT-----*/// Review this line
 
 function createEnemieTwo(){
-  if(!(frames % 500 === 0)) return
+  if(!(frames % 300 === 0)) return
   //for(i=0;i<7; i++){
       let enemieTwo = new EnemieTwo();
       enemies.push(enemieTwo);
   //}
 }
 function drawEnemieTwo(){
-  enemies.forEach(enemie=>{
+  enemies.forEach(enemieTwo=>{
     if(enemieTwo.y == enemieTwo.yFinal){
       enemieTwo.draw()
     }else
       enemieTwo.drawInicial();
 });
 }
+
 
 /* -----ENEMIE THREE RIGHT-----*/ 
 
@@ -251,7 +252,7 @@ function createEnemieThree(){
   //}
 }
 function drawEnemieThree(){
-  enemies.forEach(enemie=>{
+  enemies.forEach(enemieThree=>{
     if(enemieThree.y == enemieThree.yFinal){
       enemieThree.draw()
     }else
@@ -269,7 +270,7 @@ function createEnemieFour(){
   //}
 }
 function drawEnemieFour(){
-  enemies.forEach(enemie=>{
+  enemies.forEach(enemieFour=>{
     if(enemieFour.y == enemieFour.yFinal){
       enemieFour.draw()
     }else
@@ -287,7 +288,7 @@ function createEnemieFive(){
   //}
 }
 function drawEnemieFive(){
-  enemies.forEach(enemie=>{
+  enemies.forEach(enemieFive=>{
     if(enemieFive.y == enemieFive.yFinal){
       enemieFive.draw()
     }else
@@ -297,32 +298,43 @@ function drawEnemieFive(){
 
 /* -----ENEMIE SIX LEFT-----*/ 
 
-function createEnemie(){
+function createEnemieSix(){
   if(!(frames % 300 === 0)) return
   //for(i=0;i<7; i++){
-      let enemie = new Enemie();
-      enemies.push(enemie);
+      let enemieSix = new EnemieSix();
+      enemies.push(enemieSix);
   //}
 }
-function drawEnemie(){
-  enemies.forEach(enemie=>{
-    if(enemie.y == enemie.yFinal){
-      enemie.draw()
+function drawEnemieSix(){
+  enemies.forEach(enemieSix=>{
+    if(enemieSix.y == enemieSix.yFinal){
+      enemieSix.draw()
     }else
-      enemie.drawInicial();
+      enemieSix.drawInicial();
 });
 }
 
+/* -----Creating all enemies at once-----*/ 
 
 
-
-
-
-
-
-
-
-
+function drawEnemies() {
+  drawEnemie();
+          drawEnemieTwo();
+          drawEnemieThree();
+          drawEnemieFour();
+          drawEnemieFive();
+          drawEnemieSix();
+    
+      }  
+  function createEnemies() { 
+  createEnemie();
+  createEnemieTwo();
+  createEnemieThree();
+  createEnemieFour();
+  createEnemieFive();
+  createEnemieSix();
+  }
+  
 
 
 
