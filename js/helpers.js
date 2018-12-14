@@ -24,7 +24,7 @@ function drawPlatforms(){
 }
 
 
-/* -----Player motion-----*/ //this part was move to draft for testing
+/* -----Player motion-----*/ 
 
 function playerMovement() { 
    
@@ -42,12 +42,14 @@ function playerMovement() {
       if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 1; }
       player.isWalkingTo = "right";
       player.action = 1
+      if(player.mode != "start mode"){player.xs *= 2}
     }
     if(keys[37]){
       keys[37]=false;
       if(player.x < 0){ player.xs = 0} else { player.xs -= 1;}  
       player.isWalkingTo = "left";
-      player.cation = 2  
+      player.cation = 2 
+      if(player.mode != "start mode"){player.xs *= 2}
     }
   
     if(keys[83]){
@@ -79,16 +81,15 @@ function playerMovement() {
     }
 }
 
-   
-
+  
 function collisionCheck(char, plat){
 
   // this is how the player would appear, if removing widht/2 the player appears in the middle of the lines
   
-  var vectorX = (char.x + (char.width/2)) - (plat.x + (plat.width/2)); // middle pints x 
-  var vectorY = (char.y + (char.height/2)) - (plat.y + (plat.height/2)); // midle pints y
+  var vectorX = (char.x + (char.width/2)) - (plat.x + (plat.width/2)); // player center x with platform center x borders
+  var vectorY = (char.y + (char.height/2)) - (plat.y + (plat.height/2)); // player center y with platform center y borders
   
-  var halfWidths = (char.width/2) + (plat.width/2); 
+  var halfWidths = (char.width/2) + (plat.width/2); // middle center
   var halfHeights = (char.height/2) + (plat.height/2);
   
   var collisionDirection = null;
@@ -130,6 +131,7 @@ function createBullet(){
 }
 
 function drawBullet() { 
+  //bullets.forEach( bullet =>{
   if(player.mode == "start mode" || player.mode == "red mode"){
   
           if(player.isWalkingTo == "right"){
@@ -170,25 +172,23 @@ function drawBullet() {
               if(player.isWalkingTo == "right"){
   
                   bullets.forEach(bullet =>{
-                  bullet.x += bullet.xs;
-                  bullet.y += bullet.ys;
+                  bullet.x += bullet.xs * 3.5;
+                  bullet.y += bullet.ys * 1.5;
                   bullet.ys += bullet.gravity;
                   bullet.draw(); // bullet 2 range "large"
               })   
               } else if (player.isWalkingTo == "left") {
   
                   bullets.forEach(bullet =>{
-                  bullet.xs = bullet.xs * 2,
-                  bullet.ys = bullet.ys * 2,
-                  bullet.x -= bullet.xs;
-                  bullet.y += bullet.ys;
+                  bullet.x -= bullet.xs * 3.5;
+                  bullet.y += bullet.ys * 1.5; 
                   bullet.ys += bullet.gravity;
                   bullet.draw();// bullet 2 range // large
               })
           }
       }
-  }
-  
+  //});
+}
 
 
 /* -----Enemies-----*/ 

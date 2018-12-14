@@ -23,7 +23,7 @@ function Player(){
     this.y = 485 //make sure to appears on the floor
     this.spriteWidth = 325
     this.spriteheight = 80
-    this.sprCols = 5
+    this.sprCols = 4
     this.sprRows = 1
     this.width = this.spriteWidth / this.sprCols
     this.height = this.spriteheight / this.sprRows
@@ -37,7 +37,7 @@ function Player(){
     this.grounded = false
     this.isWalkingTo = ""
     this.action; 
-    this.mode = "start mode"
+    this.mode = "green mode"
     
     this.img = new Image()
     this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_right2.png"
@@ -88,7 +88,7 @@ function Bullet(){
 
 
   this.draw = function(){
-        c.fillStyle = "red";
+        c.fillStyle = "purple";
         c.fillRect(this.x, this.y, 12, 12);
     }  
 
