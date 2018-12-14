@@ -133,23 +133,24 @@ function Bullet(){
 function Enemie(plataforma){
   //this.type = type
     this.plataforma = plataforma;
+	this.spriteWidth = 726
+	this.spriteheight = 86
+	this.sprCols = 7
+	this.sprRows = 1
+	this.width = this.spriteWidth / this.sprCols
+	this.height = this.spriteheight / this.sprRows
     this.y = 0;//(Math.random() * (c.canvas.width / 4)),
-    this.x = (plataforma.x + plataforma.width >= c.canvas.width)?c.canvas.width:0;
-    this.yFinal = plataforma.y;//landing[ri]
+    this.x = (plataforma.x + plataforma.width >= c.canvas.width)?c.canvas.width-this.width:0+this.width/2;
+    this.yFinal = plataforma.y-this.height;//landing[ri]
     this.xFinal = this.x
     this.number = 1
-    this.xs = 0
+    this.xs = 1
     this.ys = 0
   //this.width = 20,
   //this.height = 20,
     this.gravity = 0.9
     this.grounded = false
-    this.spriteWidth = 726
-    this.spriteheight = 86
-    this.sprCols = 7
-    this.sprRows = 1
-    this.width = this.spriteWidth / this.sprCols
-    this.height = this.spriteheight / this.sprRows
+
     this.curFrame = 0;
 
     this.img = new Image() // lines added
@@ -164,24 +165,21 @@ function Enemie(plataforma){
         this.y++;
         if(this.y){
           this.ys ++;
-        };
+        }
         c.drawImage(this.img, this.x, this.y, 62, 90);
     }
 
     this.draw = function(){
-        this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png"
-        if(this.plataforma.x <= this.x){
-            this.xs = -1;
-        }else if((this.x + this.width) < (this.plataforma.x + this.plataforma.width)){
+        this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png";
+        if(this.x < this.plataforma.x){
             this.xs = 1;
+        }else if((this.x + this.width/2) > (this.plataforma.x + this.plataforma.width)){
+            this.xs = -1;
         }
-        //this.x = 130
-        this.x += this.xs;
+	    this.x += this.xs;
+
         this.currFrame ++;
-        //if(this.curFrame > this.sprCols){this.curFrame = 0}
-        //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-        //c.fillStyle = "black";
-        //c.fillRect(this.x, this.y, 30, 30);
+
         c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);
     }
 

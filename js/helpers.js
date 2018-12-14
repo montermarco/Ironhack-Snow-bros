@@ -334,7 +334,7 @@ function drawEnemies() {
   function createEnemies() {
 	  if(!(frames % 300 == 0)) return
 	  //for(i=0;i<7; i++){
-	  enemies.push(new Enemie(platforms[0]));
+	  enemies.push(new Enemie(platforms[5]));
 	  //}
   //createEnemie();
   // createEnemieTwo();
