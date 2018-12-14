@@ -280,12 +280,14 @@ function EnemieThree(){
   this.height = 20,
   this.gravity = 0.9,
   this.grounded = false
-  this.createMonster = function(){
-    console.log(this.number)
-    this.x = Math.random() * c.canvas.width;
-    this.y = 0
 
-  }
+  this.spriteWidth = 726
+  this.spriteheight = 86
+  this.sprCols = 7
+  this.sprRows = 1
+  this.width = this.spriteWidth / this.sprCols
+  this.height = this.spriteheight / this.sprRows
+  this.curFrame = 0;
  
   this.img = new Image() // lines added
   this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
@@ -301,13 +303,18 @@ function EnemieThree(){
     c.drawImage(this.img, this.x, this.y);
     }    
 
-  this.draw = function(){
-    this.x = 100
-    this.x = this.x -1 
-    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
+    this.draw = function(){
+      this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png"
+      this.x = 100
+      this.x = this.x -1
+      this.currFrame ++;
+      //if(this.curFrame > this.sprCols){this.curFrame = 0} 
+      //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+      //c.fillStyle = "black";
+      //c.fillRect(this.x, this.y, 30, 30);
+      c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);       
+      }  
+  
 
    this.isTouching = function (platform) {
     return (this.x < platform.x + platform.width)  &&
