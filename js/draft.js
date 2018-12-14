@@ -1320,3 +1320,24 @@ platforms.forEach(platform=>{
 
 
 
+
+
+
+
+
+function para mover enmigo
+function generar enemigos aleatorio
+
+
+every / seconds new enemir
+level = dificulty
+
+
+indice map
+para borrarlo lo saco del arreglo que l pinta
+si este we tpca a este we
+
+eneie indice map
+
+bullet.map   
+ss enemiei stouchin bala = 

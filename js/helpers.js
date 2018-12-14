@@ -22,8 +22,6 @@ function drawPlatforms(){
     c.fillRect(platform.x, platform.y, platform.width, 0);
   });
 }
-
-
 /* -----Player motion-----*/ 
 
 function playerMovement() { 
@@ -195,14 +193,23 @@ function drawBullet() {
 
 
 function createEnemie(){
-  let enemie = new Enemie();
-  enemies.push(enemie);
+  console.log("Dentro de creacion del mostro")
+   if(!(frames % 100 === 0)) return
+   for(i=0;i<7; i++){
+     let enemie = new Enemie(i, platforms[3+i].y);
+     enemie.createMonster();
+     enemies.push(enemie)
+   }
+    
 }
 
 
 function drawEnemie(){
   enemies.forEach(enemie=>{
-  enemie.draw();
+    if(enemie.y == enemie.yFinal){
+      enemie.draw()
+    }else
+      enemie.drawInicial();
 });
 }
 
