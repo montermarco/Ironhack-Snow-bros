@@ -22,7 +22,14 @@ function drawPlatforms(){
     c.fillRect(platform.x, platform.y, platform.width, 0);
   });
 }
-/* -----Player motion-----*/ 
+
+
+function clearCanvas(){
+  c.clearRect(0, 0, 900, 600);
+}
+
+
+//////////////////////////////////////////////////* -----Player motion-----*/ 
 
 function playerMovement() { 
    
@@ -120,8 +127,7 @@ function collisionCheck(char, plat){
 }
 
 
-
-/* -----Bullets-----*/ 
+////////////////////////////////////////////////////////* -----Bullets-----*/ 
 
 function createBullet(){
   let bullet = new Bullet();
@@ -189,21 +195,25 @@ function drawBullet() {
 }
 
 
-/* -----Enemies-----*/ 
+////////////////////////////////////////////////////////* -----Enemies-----*/ 
 
+var landing = [];
+for(i=0; i<platforms.length; i++){
+    let landy = platforms[i].y
+    landing.push(landy);
+}
+var ri = Math.floor(Math.random() * landing.length);
+console.log(landing[ri]);
+
+/* -----ENEMIE ONE RIGHT-----*/ 
 
 function createEnemie(){
-  console.log("Dentro de creacion del mostro")
-   if(!(frames % 100 === 0)) return
-   for(i=0;i<7; i++){
-     let enemie = new Enemie(i, platforms[3+i].y);
-     enemie.createMonster();
-     enemies.push(enemie)
-   }
-    
+  if(!(frames % 300 === 0)) return
+  //for(i=0;i<7; i++){
+      let enemie = new Enemie();
+      enemies.push(enemie);
+  //}
 }
-
-
 function drawEnemie(){
   enemies.forEach(enemie=>{
     if(enemie.y == enemie.yFinal){
@@ -213,6 +223,107 @@ function drawEnemie(){
 });
 }
 
-function clearCanvas(){
-	c.clearRect(0, 0, 900, 600);
+/* -----ENEMIE TWO LEFT-----*/ 
+
+function createEnemieTwo(){
+  if(!(frames % 500 === 0)) return
+  //for(i=0;i<7; i++){
+      let enemieTwo = new EnemieTwo();
+      enemies.push(enemieTwo);
+  //}
 }
+function drawEnemieTwo(){
+  enemies.forEach(enemie=>{
+    if(enemieTwo.y == enemieTwo.yFinal){
+      enemieTwo.draw()
+    }else
+      enemieTwo.drawInicial();
+});
+}
+
+/* -----ENEMIE THREE RIGHT-----*/ 
+
+function createEnemieThree(){
+  if(!(frames % 300 === 0)) return
+  //for(i=0;i<7; i++){
+      let enemieThree = new EnemieThree();
+      enemies.push(enemieThree);
+  //}
+}
+function drawEnemieThree(){
+  enemies.forEach(enemie=>{
+    if(enemieThree.y == enemieThree.yFinal){
+      enemieThree.draw()
+    }else
+      enemieThree.drawInicial();
+});
+}
+
+/* -----ENEMIE FOUR LEFT-----*/ 
+
+function createEnemieFour(){
+  if(!(frames % 300 === 0)) return
+  //for(i=0;i<7; i++){
+      let enemieFour = new EnemieFour();
+      enemies.push(enemieFour);
+  //}
+}
+function drawEnemieFour(){
+  enemies.forEach(enemie=>{
+    if(enemieFour.y == enemieFour.yFinal){
+      enemieFour.draw()
+    }else
+      enemieFour.drawInicial();
+});
+}
+
+/* -----ENEMIE FIVE RIGHT-----*/ 
+
+function createEnemieFive(){
+  if(!(frames % 300 === 0)) return
+  //for(i=0;i<7; i++){
+      let enemieFive = new EnemieFive();
+      enemies.push(enemieFive);
+  //}
+}
+function drawEnemieFive(){
+  enemies.forEach(enemie=>{
+    if(enemieFive.y == enemieFive.yFinal){
+      enemieFive.draw()
+    }else
+      enemieFive.drawInicial();
+});
+}
+
+/* -----ENEMIE SIX LEFT-----*/ 
+
+function createEnemie(){
+  if(!(frames % 300 === 0)) return
+  //for(i=0;i<7; i++){
+      let enemie = new Enemie();
+      enemies.push(enemie);
+  //}
+}
+function drawEnemie(){
+  enemies.forEach(enemie=>{
+    if(enemie.y == enemie.yFinal){
+      enemie.draw()
+    }else
+      enemie.drawInicial();
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

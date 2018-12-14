@@ -1316,12 +1316,50 @@ platforms.forEach(platform=>{
   });
   
 
+ // this.position = function(){
+  //   console.log(this.number)
+  //   switch(this.number){
+  //     case 1:
+  //       this.x = 25;
+  //       this.y = 200;
+  //   }
+  // }
 
 
+  function drawEnemie(){
+    enemies.forEach(enemie=>{
+      if(enemie.y == enemie.yFinal){
+        enemie.draw()
+      }else
+        enemie.drawInicial();
+  });
+  }
+  
+  function clearCanvas(){
+      c.clearRect(0, 0, 900, 600);
+  }
+  
 
 
+ 
+      //   if(keys[83]){
+      //     this.curFrame++;}
+      //   if(this.curFrame == this.sprCols){
+      //     this.curFrame = -1
+      //   }  
+      // break;
 
-
+      // case "left":
+      // this.img.src = "./img/Snow_bro/bullets/bulletone_left2.png"
+      // if(keys[83]){
+      // this.curFrame++;
+      // } if(this.curFrame == this.sprCols){
+      //   this.curFrame = -1
+      // }
+      // break;
+      // } 
+      //   console.log("La baaaala", this.x, this.y)
+      //   c.drawImage(this.img, 0+(this.spriteWidth/2*this.curFrame), 0, 42, 42, this.x, this.y, this.width, this.height);
 
 
 
@@ -1341,3 +1379,177 @@ eneie indice map
 
 bullet.map   
 ss enemiei stouchin bala = 
+
+
+
+function enemieMovement() { 
+   
+    if(enemie.x + enemie.width > c.canvas.width){
+      enemie.xs --;
+    } else { enemie.xs ++}  
+    
+    if (enemie.x < 0){enemie.x = ++} else {enemie.x --} 
+    
+      //jumping
+      enemie.y += enemie.ys;
+      enemie.ys += gravity;
+  
+      //lateral movement
+      enemie.x += enemie.xs;
+      enemie.xs *= friction;
+      
+      //collition
+      enemie.grounded = false;
+      
+        platforms.forEach(platform=>{
+        var direction = collisionCheck(enemie, platform);
+        if(direction == "bottom"){
+          enemie.grounded = true;
+        }     
+      });
+  
+      if(ememie.grounded){
+        enemie.ys = 0;
+      }
+  }
+  
+    
+
+
+
+  function Wizzard(){
+    this.x = Math.random() * c.canvas.width
+    this.y = null
+    this.yFinal = landing[ri]
+    this.xs = 0,
+    this.ys = 0,
+    this.width = 20,
+    this.height = 20,
+    this.gravity = 0.9,
+    this.grounded = false
+    
+    this.drawInicial = function(){
+      //if(this.y == this.yFinal) return;
+      this.y++;
+      // if(this.y){
+      //   this.ys ++;
+      // };
+      c.fillStyle = "blue";
+      c.fillRect(this.x, this.y, 30, 30);
+      }  
+  
+    this.draw = function(){
+      
+      c.fillStyle = "green";
+      c.fillRect(this.x, this.y, 30, 30);
+      }  
+  
+     this.isTouching = function (platform) {
+        return  (this.x < platform.x + platform.width)  &&
+                (this.x + this.width > platform.x)  &&
+                (this.y < platform.y + platform.height) &&
+                (this.y + this.height > platform.y)
+     }
+  
+  }
+
+  function createWizzard(){
+    if(!(frames % 300 === 0)) return
+    for(i=0;i<7; i++){
+        let wizz = new Wizzard();
+        enemiwe.createMonster();
+        enemies.push(wizz);
+    }
+  }
+
+//////////////////replacement
+// line 211 of helpers
+
+function Wizzard(){
+    this.x = Math.random() * c.canvas.width
+    this.y = 0
+    this.yFinal = landing[ri]
+    this.xs = 0,
+    this.ys = 0,
+    this.width = 20,
+    this.height = 20,
+    this.grounded = false
+    this.jumping = false
+    this.jumpStrength = -15
+      
+    
+    this.drawInicial = function(){
+      //if(this.y == this.yFinal) return;
+      this.y++;
+      // if(this.y){
+      //   this.ys ++;
+      // };
+      c.fillStyle = "blue";
+      c.fillRect(this.x, this.y, 30, 30);
+      }  
+  
+    this.draw = function(){
+      if(this.y < 535){
+        this.y++;
+      }
+      c.fillStyle = "green";
+      c.fillRect(this.x, this.y, 30, 30);
+      }  
+  
+     this.isTouching = function (platform) {
+        return  (this.x < platform.x + platform.width)  &&
+                (this.x + this.width > platform.x)  &&
+                (this.y < platform.y + platform.height) &&
+                (this.y + this.height > platform.y)
+     }
+  
+  }
+
+
+
+function drawWizz(){
+    wizzards.forEach(wizz=>{
+        wizz.draw();
+  });
+  }
+  
+
+  function createWizzard(){
+    if(!(frames % 900 === 0)) return
+    //for(i=0;i<7; i++){
+        let wizz = new Wizzard();
+        wizzards.push(wizz);
+    //}
+  }
+
+
+
+
+function wizzMovement() { 
+  
+  wizz.y ++;
+
+  if(wizz.x + wizz.width > 900){wizz.xs --} else { wizz.xs ++}  
+  if(wizz.x < 0){ wizz.xs = 0} else { wizz.xs -= 1;}  
+
+    //lateral movement
+  wizz.x += wizz.xs;
+  wizz.xs *= friction;
+    
+    //collition
+  wizz.grounded = false;
+    
+  platforms.forEach(platform=>{
+      var direction = collisionCheck(wizz, platform);
+      if(direction == "bottom"){
+        wizz.grounded = true;
+      }     
+  });
+
+  if(wizz.grounded){
+    wizz.ys = 0;
+  }
+}
+
+  
+  

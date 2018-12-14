@@ -37,7 +37,7 @@ function Player(){
     this.grounded = false
     this.isWalkingTo = ""
     this.action; 
-    this.mode = "start mode"
+    this.mode = "green mode"
     
     this.img = new Image()
     this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_right2.png"
@@ -95,17 +95,12 @@ function Bullet(){
   this.curFrame = 0;
 
 
-  // this.draw = function(){
-  //       c.fillStyle = "purple";
-  //       c.fillRect(this.x, this.y, 12, 12);
-  // }  
-
-   this.isTouching = function (enemie) {
+  this.isTouching = function (enemie) {
      return (this.x < enemie.x + enemie.width)  &&
             (this.x + this.width > enemie.x)  &&
             (this.y < enemie.y + enemie.height) &&
             (this.y + this.height > enemie.y)
-   }
+  }
   this.img = new Image() // default bullet right short b1
   this.img.src = "./img/Snow_bro/bullets/bulletone_right2.png"
   
@@ -134,53 +129,288 @@ function Bullet(){
 
 /* -----ENEMIES-----*/ 
 
-function Enemie(number, yFinal){
+////////////////////////////////////////////ENEMIE 1
+function Enemie(){
   //this.type = type,
-  this.x = null,
-  this.y = null,
-  this.yFinal = yFinal,
-  this.number = number,
-  this.xs = 5,
-  this.ys = 5,
+  this.x = Math.random() * c.canvas.width,
+  this.y = 0,
+  this.yFinal = landing[ri]
+  this.xFinal = this.yFinal
+  this.number = 1,
+  this.xs = 0,
+  this.ys = 0,
   this.width = 20,
   this.height = 20,
   this.gravity = 0.9,
+  this.grounded = false
   this.createMonster = function(){
     console.log(this.number)
-    this.x = Math.random() > .5? 0:800;
+    this.x = Math.random() * c.canvas.width;
     this.y = 0
 
   }
-  // this.position = function(){
-  //   console.log(this.number)
-  //   switch(this.number){
-  //     case 1:
-  //       this.x = 25;
-  //       this.y = 200;
-  //   }
-  // }
+ 
   this.drawInicial = function(){
     if(this.y == this.yFinal) return;
     this.y++;
-    c.fillStyle = "red";
+    if(this.y){
+      this.ys ++;
+    };
+    c.fillStyle = "blue";
     c.fillRect(this.x, this.y, 30, 30);
     }  
 
   this.draw = function(){
-    this.x++;
-    c.fillStyle = "red";
+    this.x ++; 
+    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+    c.fillStyle = "yellow";
     c.fillRect(this.x, this.y, 30, 30);
     }  
 
-   this.isTouching = function (bullet) {
-     return (this.x < bullet.x + bullet.width)  &&
-            (this.x + this.width > bullet.x)  &&
-            (this.y < bullet.y + bullet.height) &&
-            (this.y + this.height > bullet.y)
+   this.isTouching = function (platform) {
+    return (this.x < platform.x + platform.width)  &&
+           (this.x + this.width > platform.x)  &&
+           (this.y < platform.y + platform.height) &&
+           (this.y + this.height > platform.y)
    }
 
 }
 
 
+////////////////////////////////////////////ENEMIE 2
+function EnemieTwo(){
+  //this.type = type,
+  this.x = Math.random() * c.canvas.width,
+  this.y = 0,
+  this.yFinal = landing[ri]
+  this.xFinal = this.yFinal
+  this.number = 1,
+  this.xs = 0,
+  this.ys = 0,
+  this.width = 20,
+  this.height = 20,
+  this.gravity = 0.9,
+  this.grounded = false
+  this.createMonster = function(){
+    console.log(this.number)
+    this.x = Math.random() * c.canvas.width;
+    this.y = 0
+
+  }
+ 
+  this.drawInicial = function(){
+    if(this.y == this.yFinal) return;
+    this.y++;
+    if(this.y){
+      this.ys ++;
+    };
+    c.fillStyle = "yellow";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+  this.draw = function(){
+    this.x ++ 
+    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+    c.fillStyle = "green";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+   this.isTouching = function (platform) {
+    return (this.x < platform.x + platform.width)  &&
+           (this.x + this.width > platform.x)  &&
+           (this.y < platform.y + platform.height) &&
+           (this.y + this.height > platform.y)
+   }
+
+}
 
 
+////////////////////////////////////////////ENEMIE 3
+function EnemieThree(){
+  //this.type = type,
+  this.x = Math.random() * c.canvas.width,
+  this.y = 0,
+  this.yFinal = landing[ri]
+  this.xFinal = this.yFinal
+  this.number = 1,
+  this.xs = 0,
+  this.ys = 0,
+  this.width = 20,
+  this.height = 20,
+  this.gravity = 0.9,
+  this.grounded = false
+  this.createMonster = function(){
+    console.log(this.number)
+    this.x = Math.random() * c.canvas.width;
+    this.y = 0
+
+  }
+ 
+  this.drawInicial = function(){
+    if(this.y == this.yFinal) return;
+    this.y++;
+    if(this.y){
+      this.ys ++;
+    };
+    c.fillStyle = "red";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+  this.draw = function(){
+    this.x ++ 
+    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+    c.fillStyle = "purple";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+   this.isTouching = function (platform) {
+    return (this.x < platform.x + platform.width)  &&
+           (this.x + this.width > platform.x)  &&
+           (this.y < platform.y + platform.height) &&
+           (this.y + this.height > platform.y)
+   }
+
+}
+
+
+////////////////////////////////////////////ENEMIE 4
+function EnemieFour(){
+  //this.type = type,
+  this.x = Math.random() * c.canvas.width,
+  this.y = 0,
+  this.yFinal = landing[ri]
+  this.xFinal = this.yFinal
+  this.number = 1,
+  this.xs = 0,
+  this.ys = 0,
+  this.width = 20,
+  this.height = 20,
+  this.gravity = 0.9,
+  this.grounded = false
+  this.createMonster = function(){
+    console.log(this.number)
+    this.x = Math.random() * c.canvas.width;
+    this.y = 0
+
+  }
+ 
+  this.drawInicial = function(){
+    if(this.y == this.yFinal) return;
+    this.y++;
+    if(this.y){
+      this.ys ++;
+    };
+    c.fillStyle = "white";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+  this.draw = function(){
+    this.x -- 
+    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+    c.fillStyle = "gray";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+   this.isTouching = function (platform) {
+    return (this.x < platform.x + platform.width)  &&
+           (this.x + this.width > platform.x)  &&
+           (this.y < platform.y + platform.height) &&
+           (this.y + this.height > platform.y)
+   }
+
+}
+
+
+////////////////////////////////////////////ENEMIE 5
+function EnemieFive(){
+  //this.type = type,
+  this.x = Math.random() * c.canvas.width,
+  this.y = 0,
+  this.yFinal = landing[ri]
+  this.xFinal = this.yFinal
+  this.number = 1,
+  this.xs = 0,
+  this.ys = 0,
+  this.width = 20,
+  this.height = 20,
+  this.gravity = 0.9,
+  this.grounded = false
+  this.createMonster = function(){
+    console.log(this.number)
+    this.x = Math.random() * c.canvas.width;
+    this.y = 0
+
+  }
+ 
+  this.drawInicial = function(){
+    if(this.y == this.yFinal) return;
+    this.y++;
+    if(this.y){
+      this.ys ++;
+    };
+    c.fillStyle = "black";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+  this.draw = function(){
+    this.x ++ 
+    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+    c.fillStyle = "white";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+   this.isTouching = function (platform) {
+    return (this.x < platform.x + platform.width)  &&
+           (this.x + this.width > platform.x)  &&
+           (this.y < platform.y + platform.height) &&
+           (this.y + this.height > platform.y)
+   }
+
+}
+
+////////////////////////////////////////////ENEMIE 6
+function Enemie(){
+  //this.type = type,
+  this.x = Math.random() * c.canvas.width,
+  this.y = 0,
+  this.yFinal = landing[ri]
+  this.xFinal = this.yFinal
+  this.number = 1,
+  this.xs = 0,
+  this.ys = 0,
+  this.width = 20,
+  this.height = 20,
+  this.gravity = 0.9,
+  this.grounded = false
+  this.createMonster = function(){
+    console.log(this.number)
+    this.x = Math.random() * c.canvas.width;
+    this.y = 0
+
+  }
+ 
+  this.drawInicial = function(){
+    if(this.y == this.yFinal) return;
+    this.y++;
+    if(this.y){
+      this.ys ++;
+    };
+    c.fillStyle = "blue";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+  this.draw = function(){
+    this.x -- 
+    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+    c.fillStyle = "yellow";
+    c.fillRect(this.x, this.y, 30, 30);
+    }  
+
+   this.isTouching = function (platform) {
+    return (this.x < platform.x + platform.width)  &&
+           (this.x + this.width > platform.x)  &&
+           (this.y < platform.y + platform.height) &&
+           (this.y + this.height > platform.y)
+   }
+
+}
