@@ -22,7 +22,9 @@
 //   });
   
 document.body.addEventListener("keydown", function(event){
-    //console.log(event.keyCode + " key down");
+    if(event.keyCode == 13){
+		start()
+	}
     keys[event.keyCode] = true;
   });
   

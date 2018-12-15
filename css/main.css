@@ -1,10 +1,80 @@
-canvas {
-    border: 2px solid black;
-    margin: auto 0;
+
+
+body{
+    background-image: url(https://cdn.thegamesdb.net/images/original/boxart/front/8749-1.jpg);  
 }
 
-.container {
-    width: 1000px;
-    height: 1000px;
-    background-color: "black"
+.header{
+    text-align: center;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(177, 172, 172), 0 0 25px rgb(230, 230, 219), 0 0 5px rgb(214, 197, 178);
+    font-size: 45px;
+    font-family: 'Luckiest Guy', cursive;
+    letter-spacing: 0.5em
+}
+
+#game{
+    border: 15px solid black;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 900px;      
+    position: absolute;
+    top: 75px;
+    right: 50px;
+}
+
+ul{
+    list-style: none;
+}
+
+  .btn {
+  top: 0;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  margin: 0 7px 11px 0;
+  padding: 0 20px;
+  text-align: center;
+
+  /* Smoothing out hover using css3 transitions, if not, the pressed button effect looks a bit hard */
+  transition: all 0.2s ease;
+
+  /* Size */
+  line-height: 45px;
+  width: 220px;
+  height: 35px;
+  font-size: 15px;
+
+  /* Colors */
+  text-align: center;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(177, 172, 172), 0 0 25px rgb(230, 230, 219), 0 0 5px rgb(214, 197, 178);
+    font-size: 15px;
+    font-family: 'Luckiest Guy', cursive;
+    letter-spacing: 0.5em
+}
+
+.btn:hover {
+  background: #e6e6e6;
+  box-shadow: 0 5px #aaa;
+  color: #888;
+}
+
+/* Imitate a pressed effect for buttons */
+.btn:active {
+  top: 5px;
+  box-shadow: none;
+}
+
+.panel {
+    position: absolute;
+    top: 300px;
+    left: 50px; 
+    width: 170px;
+    z-index: 42;
+    padding: 20px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.8);
 }

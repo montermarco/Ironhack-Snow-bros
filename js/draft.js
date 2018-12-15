@@ -2212,3 +2212,55 @@ function killWizzard(){
      }
  })
   }
+
+
+
+
+
+
+function startGame(){
+	gameStarted = true;
+	clearCanvas();
+
+	interval = setInterval(function(){
+		clearCanvas();
+		loop();
+	}, 1000/60)
+}
+
+
+intro_screen();
+
+function intro_screen(){
+	c.font = "50px Impact";
+	c.fillStyle = "#0099CC";
+	c.textAlign = "center";
+	c.fillText("Snow Bros vs Wizz", c.canvas.width/2, c.canvas.height/2);
+  c.font = "20px Arial";
+	c.fillText("Press Enter To Start", c.canvas.width/2, c.canvas.height/2 + 50);
+}
+
+
+//main js
+
+window.onload = function(){
+  function update() { 
+      clearCanvas(); // update first call
+      boardgame.draw() // 2nd call - goes directly to Boardgame class/constructor
+      drawPlatforms(); // 3rd - from helpers, drawLevel
+      player.drawImage(); // goes to this.action 
+      drawBullet(); // goes to drawBullet which contains the bullet direction properties;
+      playerMovement()
+      drawEnemies();
+      wizzardKiller()
+      
+  } 
+  update(); // this is the first function it runs
+
+   function startGame() { 
+      createEnemie();
+      interval = setInterval(update,1000/60)
+  }
+  intro_screen(); 
+  startGame();
+}
