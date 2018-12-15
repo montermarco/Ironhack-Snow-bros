@@ -1734,7 +1734,21 @@ function Enemie(){
 //     c.fillRect(arr.x, arr.y, 20, 20)
 //   });
 // }
+//Creating levels
 
+// var levelOne = platforms.filter(platform => platform.level == "one");
+// var levelTwo = platforms.filter(platform => platform.level == "two");
+// var levelThree = platforms.filter(platform => platform.level == "three");
+// var levelFour = platforms.filter(platform => platform.level == "four");
+
+// Drawing thelevels -  The wanted level must be passed as the function argument
+
+// function drawLevel(array){
+//   c.fillStyle = "red";
+//   array.forEach(arr =>{
+//     c.fillRect(arr.x, arr.y, 20, 20)
+//   });
+// }
 function drawPlatforms(){
     //c.fillStyle = "black";
     platforms.forEach(platform=>{
@@ -2120,3 +2134,81 @@ function drawPlatforms(){
         // createEnemieFive();
         // createEnemieSix();
         }
+
+
+function killWizzard(){
+    enemies.forEach( bullet =>{
+      if(enemie.isTouching(bullet)){
+        enemie.ys --;
+        console.log("touched")
+      }
+  
+    })
+  
+  }
+  
+  function wizzKilled() {
+    enemies.forEach(function (bullet) {
+      if(enemie.isTouching(bullet)) gameOver()
+    })
+  }
+
+  function gameOver() { 
+      console.log("wizz killed!!!!")
+   }
+
+
+
+
+
+
+
+
+   
+   function isTouching (a,b){
+    return a.x < b.x + b.width-20 &&
+           a.x + a.width-20 > b.x &&
+           a.y < b.y + b.height-20 &&
+           a.y + a.height-20 > b.y;
+
+  }
+
+  function checkColition(){
+    balas.forEach(function(bala,bI){
+      obstacles.forEach(function (vampiro,vI){
+       if (isTouching(bala, vampiro)){
+         console.log('muere vampiro')
+        obstacles.splice(vI,1)
+        balas.splice(bI,1)
+         score++
+       } });
+    });
+
+
+
+    obstacles.forEach(function(vampiro,vI){
+      if (isTouching(vampiro,player)){
+       obstacles.splice(vI,1)
+       console.log ("me toco el vampiro")
+       life--
+      }
+    })
+
+    balas.forEach(function(bala,bI){
+     obstaclesLobos.forEach(function (lobo,lI){
+      if (isTouching(bala, lobo)){
+        console.log('muere lobo')
+         balas.splice(bI,1)
+         obstaclesLobos.splice(lI,1)
+         score++
+
+      } });
+   });
+     obstaclesLobos.forEach(function(lobo,lI){
+      if (isTouching(lobo,player)){
+    console.log ("me toco el Lobo")
+       obstaclesLobos.splice(lI,1)
+       life--;
+     }
+ })
+  }

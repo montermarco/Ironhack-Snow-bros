@@ -1,21 +1,5 @@
 /* -----Level setup-----*/
 
-//Creating levels
-
-// var levelOne = platforms.filter(platform => platform.level == "one");
-// var levelTwo = platforms.filter(platform => platform.level == "two");
-// var levelThree = platforms.filter(platform => platform.level == "three");
-// var levelFour = platforms.filter(platform => platform.level == "four");
-
-// Drawing thelevels -  The wanted level must be passed as the function argument
-
-// function drawLevel(array){
-//   c.fillStyle = "red";
-//   array.forEach(arr =>{
-//     c.fillRect(arr.x, arr.y, 20, 20)
-//   });
-// }
-
 function drawPlatforms(){
   //c.fillStyle = "black";
   platforms.forEach(platform=>{
@@ -23,12 +7,9 @@ function drawPlatforms(){
   });
 }
 
-
 function clearCanvas(){
   c.clearRect(0, 0, 900, 600);
 }
-
-
 //////////////////////////////////////////////////* -----Player motion-----*/
 
 function playerMovement() {
@@ -126,7 +107,6 @@ function collisionCheck(char, plat){
 
 }
 
-
 ////////////////////////////////////////////////////////* -----Bullets-----*/
 
 function createBullet(){
@@ -176,16 +156,16 @@ function drawBullet() {
               if(player.isWalkingTo == "right"){
 
                   bullets.forEach(bullet =>{
-                  bullet.x += bullet.xs * 3.5;
-                  bullet.y += bullet.ys * 1.5;
+                  bullet.x += bullet.xs * 1.5;
+                  bullet.y += bullet.ys * 1;
                   bullet.ys += bullet.gravity;
                   bullet.draw(); // bullet 2 range "large"
               })
               } else if (player.isWalkingTo == "left") {
 
                   bullets.forEach(bullet =>{
-                  bullet.x -= bullet.xs * 3.5;
-                  bullet.y += bullet.ys * 1.5;
+                  bullet.x -= bullet.xs * 1.5;
+                  bullet.y += bullet.ys * 1;
                   bullet.ys += bullet.gravity;
                   bullet.draw();// bullet 2 range // large
               })
@@ -205,137 +185,52 @@ for(i=0; i<platforms.length; i++){
 var ri = Math.floor(Math.random() * landing.length);
 console.log(landing[ri]);
 
-/* -----ENEMIE ONE RIGHT-----*/
+
 
 function createEnemie(){
-  if(!(frames % 300 === 0)) return
-  //for(i=0;i<7; i++){
-      let enemie = new Enemie();
-      enemies.push(enemie);
-  //}
-}
-function drawEnemie(){
-  enemies.forEach(enemie=>{
-    if(enemie.y == enemie.yFinal){
-      enemie.draw()
-    }else
-      enemie.drawInicial();
-});
-}
-
-/* -----ENEMIE TWO LEFT-----*/// Review this line
-
-function createEnemieTwo(){
-  if(!(frames % 300 === 0)) return
-  //for(i=0;i<7; i++){
-      let enemieTwo = new EnemieTwo();
-      enemies.push(enemieTwo);
-  //}
-}
-function drawEnemieTwo(){
-  enemies.forEach(enemieTwo=>{
-    if(enemieTwo.y == enemieTwo.yFinal){
-      enemieTwo.draw()
-    }else
-      enemieTwo.drawInicial();
-});
-}
-
-
-/* -----ENEMIE THREE RIGHT-----*/
-
-function createEnemieThree(){
-  if(!(frames % 300 === 0)) return
-  //for(i=0;i<7; i++){
-      let enemieThree = new EnemieThree();
-      enemies.push(enemieThree);
-  //}
-}
-function drawEnemieThree(){
-  enemies.forEach(enemieThree=>{
-    if(enemieThree.y == enemieThree.yFinal){
-      enemieThree.draw()
-    }else
-      enemieThree.drawInicial();
-});
-}
-
-/* -----ENEMIE FOUR LEFT-----*/
-
-function createEnemieFour(){
-  if(!(frames % 300 === 0)) return
-  //for(i=0;i<7; i++){
-      let enemieFour = new EnemieFour();
-      enemies.push(enemieFour);
-  //}
-}
-function drawEnemieFour(){
-  enemies.forEach(enemieFour=>{
-    if(enemieFour.y == enemieFour.yFinal){
-      enemieFour.draw()
-    }else
-      enemieFour.drawInicial();
-});
-}
-
-/* -----ENEMIE FIVE RIGHT-----*/
-
-function createEnemieFive(){
-  if(!(frames % 300 === 0)) return
-  //for(i=0;i<7; i++){
-      let enemieFive = new EnemieFive();
-      enemies.push(enemieFive);
-  //}
-}
-function drawEnemieFive(){
-  enemies.forEach(enemieFive=>{
-    if(enemieFive.y == enemieFive.yFinal){
-      enemieFive.draw()
-    }else
-      enemieFive.drawInicial();
-});
-}
-
-/* -----ENEMIE SIX LEFT-----*/
-
-function createEnemieSix(){
-  if(!(frames % 300 === 0)) return
-  //for(i=0;i<7; i++){
-      let enemieSix = new EnemieSix();
-      enemies.push(enemieSix);
-  //}
-}
-function drawEnemieSix(){
-  enemies.forEach(enemieSix=>{
-    if(enemieSix.y == enemieSix.yFinal){
-      enemieSix.draw()
-    }else
-      enemieSix.drawInicial();
-});
-}
-
-/* -----Creating all enemies at once-----*/
-
-
-
-
-  function createEnemie(){
-    console.log("Dentro de creacion del mostro")
-     if(!(frames % 100 === 0)) return
+  console.log("Dentro de creacion del mostro")
+    if(!(frames % 100 === 0)) return
      for(i=0;i<12; i++){
 
        let enemie = new Enemie(i, platforms[i]);
        enemie.wizzardmaker();
        enemies.push(enemie)
-     }
     }
+}
 
 
-    function drawEnemies() {
-      enemies.forEach(enemie=>{
-        if(enemie.grounded){
-            enemie.draw()
-        }else
-            enemie.drawInicial();
-        });
-    }
+function drawEnemies() {
+    enemies.forEach(enemie=>{
+    if(enemie.grounded){
+        enemie.draw()
+    }else
+        enemie.drawInicial();
+    });
+}
+
+
+
+////////////////////////////////////////////////////////* -----Collitions-----*/
+
+
+this.isTouching = function (obj1, obj2) {
+  return obj1.x < obj2.x + obj2.width  &&
+         obj1.x + obj1.width > obj2.x  &&
+         obj1.y < obj2.y + obj2.height &&
+         obj1.y + obj1.height > obj2.y
+}
+
+function wizzardKiller(){
+ bullets.forEach(function (bullet, bullIndex) { 
+   enemies.forEach(function (enemie, enemIndex) { 
+     if(isTouching(bullet, enemie)){
+       enemie.health -=1
+       if(enemie.health < 0){enemies.splice(enemIndex, 1);}
+       bullets.splice(bullIndex, 1);
+       score ++;
+       console.log(score);
+      }
+    });
+  }); 
+};
+

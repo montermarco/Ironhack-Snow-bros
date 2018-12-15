@@ -37,7 +37,7 @@ function Player(){
     this.grounded = false
     this.isWalkingTo = ""
     this.action; 
-    this.mode = "start mode"
+    this.mode = "green mode"
     
     this.img = new Image()
     this.img.src = "./img/Snow_bro/walk_and_run/snowbro_walk_right2.png"
@@ -52,7 +52,7 @@ function Player(){
       }if(this.curFrame == this.sprCols){
         this.curFrame = 1
       }  
-    console.log(this.y, this.x, this.width, this.height)
+    
       break;
 
     case "left":
@@ -65,15 +65,7 @@ function Player(){
       break;
       } 
         c.drawImage(this.img, (this.spriteWidth/5) * this.curFrame, 0, 65, 80, this.x, this.y, this.width, this.height);
-    }
-
-     this.isTouching = function (enemie) {
-     return (this.x < enemie.x + enemie.width)  &&
-            (this.x + this.width > enemie.x)  &&
-            (this.y < enemie.y + enemie.height) &&
-            (this.y + this.height > enemie.y)
-   }
-  
+    }  
 }
 
 /* -----BULLETS-----*/
@@ -94,13 +86,6 @@ function Bullet(){
   this.height = this.spriteheight / this.sprRows
   this.curFrame = 0;
 
-
-  this.isTouching = function (enemie) {
-     return (this.x < enemie.x + enemie.width)  &&
-            (this.x + this.width > enemie.x)  &&
-            (this.y < enemie.y + enemie.height) &&
-            (this.y + this.height > enemie.y)
-  }
   this.img = new Image() // default bullet right short b1
   this.img.src = "./img/Snow_bro/bullets/bulletone_right2.png"
   
@@ -126,7 +111,6 @@ function Bullet(){
   }  
 }
 
-
 /* -----ENEMIES-----*/ 
 
 ////////////////////////////////////////////ENEMIE 1  right BLUE
@@ -146,6 +130,7 @@ function Enemie(number, plataforma){
     this.number = number
     this.xs = 1
     this.ys = 0
+    this.health = 5
       
     this.gravity = 0.9
     this.grounded = false
@@ -183,288 +168,7 @@ function Enemie(number, plataforma){
 
         this.currFrame ++;
 
-        c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);
+        c.drawImage(this.img, 0+(this.spriteWidth/7) *this.curFrame, 0, 103, 86, this.x, this.y, this.width, this.height);
     }
-
-
-
-
-
-    this.isTouching = function (platform) {
-        return (this.x < platform.x + platform.width)  &&
-               (this.x + this.width > platform.x)  &&
-               (this.y < platform.y + platform.height) &&
-               (this.y + this.height > platform.y)
-    }
-   
-
 }
 
-
-////////////////////////////////////////////ENEMIE 2 left RED
-function EnemieTwo(platforma){
-  this.plataforma = plataforma,
-  this.x = Math.random() * c.canvas.width,
-  this.y = 0,
-  this.yFinal = 535//landing[ri]
-  this.xFinal = this.yFinal
-  this.number = 1,
-  this.xs = 0,
-  this.ys = 0,
-  this.width = 20,
-  this.height = 20,
-  this.gravity = 0.9,
-  this.grounded = false
-  this.createMonster = function(){
-    console.log(this.number)
-    this.x = Math.random() * c.canvas.width;
-    this.y = 0
-
-  }
- 
-  this.img = new Image() // lines added
-  this.img.src = "./img/wizz_red/r_wizz_jump_left3.png"
- 
-  this.drawInicial = function(){
-    if(this.y == this.yFinal)return;
-    this.y++;
-    if(this.y){
-      this.ys ++;
-    };
-    //c.fillStyle = "blue";
-    //c.fillRect(this.x, this.y, 30, 30);
-    c.drawImage(this.img, this.x, this.y);
-    }  
-
-  this.draw = function(){
-    this.x = 820
-    this.x = this.x -1 
-    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
-
-   this.isTouching = function (platform) {
-    return (this.x < platform.x + platform.width)  &&
-           (this.x + this.width > platform.x)  &&
-           (this.y < platform.y + platform.height) &&
-           (this.y + this.height > platform.y)
-   }
-
-}
-
-
-////////////////////////////////////////////ENEMIE 3 right BLUE 
-function EnemieThree(){
-  //this.type = type,
-  this.x = Math.random() * c.canvas.width,
-  this.y = 0,
-  this.yFinal = 255//landing[ri]
-  this.xFinal = this.yFinal
-  this.number = 1,
-  this.xs = 0,
-  this.ys = 0,
-  this.width = 20,
-  this.height = 20,
-  this.gravity = 0.9,
-  this.grounded = false
-
-  this.spriteWidth = 726
-  this.spriteheight = 86
-  this.sprCols = 7
-  this.sprRows = 1
-  this.width = this.spriteWidth / this.sprCols
-  this.height = this.spriteheight / this.sprRows
-  this.curFrame = 0;
- 
-  this.img = new Image() // lines added
-  this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
- 
-  this.drawInicial = function(){
-    if(this.y == this.yFinal)return;
-    this.y++;
-    if(this.y){
-      this.ys ++;
-    };
-    //c.fillStyle = "blue";
-    //c.fillRect(this.x, this.y, 30, 30);
-    c.drawImage(this.img, this.x, this.y);
-    }    
-
-    this.draw = function(){
-      this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png"
-      this.x = 100
-      this.x = this.x -1
-      this.currFrame ++;
-      //if(this.curFrame > this.sprCols){this.curFrame = 0} 
-      //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-      //c.fillStyle = "black";
-      //c.fillRect(this.x, this.y, 30, 30);
-      c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);       
-      }  
-  
-
-   this.isTouching = function (platform) {
-    return (this.x < platform.x + platform.width)  &&
-           (this.x + this.width > platform.x)  &&
-           (this.y < platform.y + platform.height) &&
-           (this.y + this.height > platform.y)
-   }
-
-}
-
-
-////////////////////////////////////////////ENEMIE 4 left RED
-function EnemieFour(){
-  //this.type = type,
-  this.x = Math.random() * c.canvas.width,
-  this.y = 0,
-  this.yFinal = 348//landing[ri]
-  this.xFinal = this.yFinal
-  this.number = 1,
-  this.xs = 0,
-  this.ys = 0,
-  this.width = 20,
-  this.height = 20,
-  this.gravity = 0.9,
-  this.grounded = false
-  this.createMonster = function(){
-    console.log(this.number)
-    this.x = Math.random() * c.canvas.width;
-    this.y = 0
-
-  }
- 
-  this.img = new Image() // lines added
-  this.img.src = "./img/wizz_red/r_wizz_jump_left3.png"
- 
-  this.drawInicial = function(){
-    if(this.y == this.yFinal)return;
-    this.y++;
-    if(this.y){
-      this.ys ++;
-    };
-    //c.fillStyle = "blue";
-    //c.fillRect(this.x, this.y, 30, 30);
-    c.drawImage(this.img, this.x, this.y);
-    } 
-
-  this.draw = function(){
-    this.x = 680
-    this.x = this.x -1 
-    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-    c.fillStyle = "yellow";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
-
-   this.isTouching = function (platform) {
-    return (this.x < platform.x + platform.width)  &&
-           (this.x + this.width > platform.x)  &&
-           (this.y < platform.y + platform.height) &&
-           (this.y + this.height > platform.y)
-   }
-
-}
-
-
-////////////////////////////////////////////ENEMIE 5 right BLUE
-function EnemieFive(){
-  //this.type = type,
-  this.x = Math.random() * c.canvas.width,
-  this.y = 0,
-  this.yFinal = 115//landing[ri]
-  this.xFinal = this.yFinal
-  this.number = 1,
-  this.xs = 0,
-  this.ys = 0,
-  this.width = 20,
-  this.height = 20,
-  this.gravity = 0.9,
-  this.grounded = false
-
-  this.spriteWidth = 726
-  this.spriteheight = 86
-  this.sprCols = 7
-  this.sprRows = 1
-  this.width = this.spriteWidth / this.sprCols
-  this.height = this.spriteheight / this.sprRows
-  this.curFrame = 0;
- 
- 
-  this.img = new Image() // lines added
-  this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
- 
-  this.drawInicial = function(){
-    if(this.y == this.yFinal)return;
-    this.y++;
-    if(this.y){
-      this.ys ++;
-    };
-    //c.fillStyle = "blue";
-    //c.fillRect(this.x, this.y, 30, 30);
-    c.drawImage(this.img, this.x, this.y);
-    }    
-
-  this.draw = function(){
-    this.x = 430
-    this.x = this.x -1 
-    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
-
-   this.isTouching = function (platform) {
-    return (this.x < platform.x + platform.width)  &&
-           (this.x + this.width > platform.x)  &&
-           (this.y < platform.y + platform.height) &&
-           (this.y + this.height > platform.y)
-   }
-
-}
-
-////////////////////////////////////////////ENEMIE 6 left RED
-function EnemieSix(){
-  //this.type = type,
-  this.x = Math.random() * c.canvas.width,
-  this.y = 0,
-  this.yFinal = 165//landing[ri]
-  this.xFinal = this.yFinal
-  this.number = 1,
-  this.xs = 0,
-  this.ys = 0,
-  this.width = 20,
-  this.height = 20,
-  this.gravity = 0.9,
-  this.grounded = false
-  c
- 
-  this.img = new Image() // lines added
-  this.img.src = "./img/wizz_red/r_wizz_jump_left3.png"
- 
-  this.drawInicial = function(){
-    if(this.y == this.yFinal)return;
-    this.y++;
-    if(this.y){
-      this.ys ++;
-    };
-    //c.fillStyle = "blue";
-    //c.fillRect(this.x, this.y, 30, 30);
-    c.drawImage(this.img, this.x, this.y);
-    }  
-
-  this.draw = function(){
-    this.x = 700
-    this.x = this.x -1 
-    //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
-    c.fillStyle = "black";
-    c.fillRect(this.x, this.y, 30, 30);
-    }  
-
-   this.isTouching = function (platform) {
-    return (this.x < platform.x + platform.width)  &&
-           (this.x + this.width > platform.x)  &&
-           (this.y < platform.y + platform.height) &&
-           (this.y + this.height > platform.y)
-   }
-
-}
