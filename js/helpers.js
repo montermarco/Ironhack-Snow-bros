@@ -226,12 +226,17 @@ function wizzardKiller(){
      if(isTouching(bullet, enemie)){
        enemie.health -=1
        if(enemie.health < 0){
+         let killer = document.getElementById("killer")
          enemies.splice(enemIndex, 1);
          wizzKilled ++;
          console.log(wizzKilled)
+         killer.innerHTML = wizzKilled;
         }
+      let totalscore = document.getElementById("total")
        bullets.splice(bullIndex, 1);
        score ++
+       console.log(score)
+       totalscore.innerHTML = score;
       }
     });
   }); 
@@ -241,7 +246,7 @@ function wizzardKiller(){
 
 function intro_screen(){
 	c.font = "70px Impact";
-	c.fillStyle = "#c475a6";
+	c.fillStyle = "#d84343";
 	c.textAlign = "center";
 	c.fillText("Snow Bros vs Wizz", c.canvas.width/2, c.canvas.height/2);
 
