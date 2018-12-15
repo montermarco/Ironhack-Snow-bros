@@ -19,7 +19,7 @@ window.onload = function(){
     update(); // this is the first function it runs
 
      function startGame() { 
-      createEnemies();
+      createEnemie();
      interval = setInterval(update,1000/60)
     }
     startGame();

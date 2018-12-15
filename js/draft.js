@@ -1572,3 +1572,551 @@ createEnemieFour();
 createEnemieFive();
 createEnemieSix();
 }
+
+
+
+
+
+// profes
+
+
+
+////////////////////////////////////////////ENEMIE 1  right BLUE
+function Enemie(plataforma){
+    //this.type = type
+      this.plataforma = plataforma;
+      this.spriteWidth = 726
+      this.spriteheight = 86
+      this.sprCols = 7
+      this.sprRows = 1
+      this.width = this.spriteWidth / this.sprCols
+      this.height = this.spriteheight / this.sprRows
+      this.y = 0;//(Math.random() * (c.canvas.width / 4)),
+      this.x = (plataforma.x + plataforma.width >= c.canvas.width)?c.canvas.width-this.width:0+this.width/2;
+      this.yFinal = plataforma.y-this.height;//landing[ri]
+      this.xFinal = this.x
+      this.number = 1
+      this.xs = 1
+      this.ys = 0
+    //this.width = 20,
+    //this.height = 20,
+      this.gravity = 0.9
+      this.grounded = false
+  
+      this.curFrame = 0;
+  
+      this.img = new Image() // lines added
+      this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
+  
+      this.drawInicial = function(){
+  
+          if(this.y == this.yFinal){
+              this.grounded = true;
+              return;
+          }
+          this.y++;
+          if(this.y){
+            this.ys ++;
+          }
+          c.drawImage(this.img, this.x, this.y, 62, 90);
+      }
+  
+      this.draw = function(){
+          this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png";
+          if(this.x < this.plataforma.x){
+              this.xs = 1;
+          }else if((this.x + this.width/2) > (this.plataforma.x + this.plataforma.width)){
+              this.xs = -1;
+          }
+          this.x += this.xs;
+  
+          this.currFrame ++;
+  
+          c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);
+      }
+  
+  
+  
+  
+  
+      this.isTouching = function (platform) {
+          return (this.x < platform.x + platform.width)  &&
+                 (this.x + this.width > platform.x)  &&
+                 (this.y < platform.y + platform.height) &&
+                 (this.y + this.height > platform.y)
+      }
+      /* -----here starts function to copy-----*/
+  
+  }
+  
+
+
+  //my enemie
+
+  ////////////////////////////////////////////ENEMIE 1  right BLUE
+function Enemie(){
+    //this.type = type,
+    this.x = (Math.random() * (c.canvas.width / 4)),
+    this.y = 0,
+    this.yFinal = 440//landing[ri]
+    this.xFinal = this.yFinal
+    this.number = 1,
+    this.xs = 0,
+    this.ys = 0,
+    //this.width = 20,
+    //this.height = 20,
+    this.gravity = 0.9,
+    this.grounded = false
+  
+    this.spriteWidth = 726
+    this.spriteheight = 86
+    this.sprCols = 7
+    this.sprRows = 1
+    this.width = this.spriteWidth / this.sprCols
+    this.height = this.spriteheight / this.sprRows
+    this.curFrame = 0;
+    
+    this.img = new Image() // lines added
+    this.img.src = "./img/wizz_blue/b_wizz_jump_right2.png"
+   
+    this.drawInicial = function(){
+      if(this.y == this.yFinal)return;
+      this.y++;
+      if(this.y){
+        this.ys ++;
+      };
+      c.drawImage(this.img, this.x, this.y, 62, 90);
+      }  
+  
+    this.draw = function(){
+      this.img.src = "./img/wizz_blue/b_wizz_right_walkcopia.png"
+      this.x = 130
+      this.x = this.x -1
+      this.currFrame ++;
+      //if(this.curFrame > this.sprCols){this.curFrame = 0} 
+      //if(this.finalX > 900){this.finalX = 0} else if(this.this.finalX < 0){this.finalX--}
+      //c.fillStyle = "black";
+      //c.fillRect(this.x, this.y, 30, 30);
+      c.drawImage(this.img, 0+(this.spriteWidth/7*this.curFrame), 0, 103, 86, this.x, this.y, this.width, this.height);       
+      }  
+    }
+  
+  
+    
+      
+     this.isTouching = function (platform) {
+      return (this.x < platform.x + platform.width)  &&
+             (this.x + this.width > platform.x)  &&
+             (this.y < platform.y + platform.height) &&
+             (this.y + this.height > platform.y)
+     }
+      /* -----here starts function to copy-----*/ 
+  
+    
+    
+
+  /////// helpers
+
+  /* -----Level setup-----*/ 
+
+//Creating levels 
+
+// var levelOne = platforms.filter(platform => platform.level == "one");
+// var levelTwo = platforms.filter(platform => platform.level == "two");
+// var levelThree = platforms.filter(platform => platform.level == "three");
+// var levelFour = platforms.filter(platform => platform.level == "four");
+
+// Drawing thelevels -  The wanted level must be passed as the function argument   
+
+// function drawLevel(array){
+//   c.fillStyle = "red";
+//   array.forEach(arr =>{
+//     c.fillRect(arr.x, arr.y, 20, 20)
+//   });
+// }
+
+function drawPlatforms(){
+    //c.fillStyle = "black";
+    platforms.forEach(platform=>{
+      c.fillRect(platform.x, platform.y, platform.width, 0);
+    });
+  }
+  
+  
+  function clearCanvas(){
+    c.clearRect(0, 0, 900, 600);
+  }
+  
+  
+  //////////////////////////////////////////////////* -----Player motion-----*/ 
+  
+  function playerMovement() { 
+     
+    //jump
+      if(keys[32]){
+        keys[32]=false;
+        if(!player.jumping){
+          player.ys = player.jumpStrength;
+          player.jumping = true;
+        }
+      }
+      //left & right
+      if(keys[39]){
+        keys[39]=false;
+        if(player.x  + player.width > c.canvas.width){ player.xs = 0} else { player.xs += 1; }
+        player.isWalkingTo = "right";
+        player.action = 1
+        if(player.mode != "start mode"){player.xs *= 2}
+      }
+      if(keys[37]){
+        keys[37]=false;
+        if(player.x < 0){ player.xs = 0} else { player.xs -= 1;}  
+        player.isWalkingTo = "left";
+        player.cation = 2 
+        if(player.mode != "start mode"){player.xs *= 2}
+      }
+    
+      if(keys[83]){
+        keys[83]=false;
+        createBullet();  
+      }
+  
+      //jumping
+      player.y += player.ys;
+      player.ys += gravity;
+  
+      //lateral movement
+      player.x += player.xs;
+      player.xs *= friction;
+      
+      //collition
+      player.grounded = false;
+      
+        platforms.forEach(platform=>{
+        var direction = collisionCheck(player, platform);
+        if(direction == "bottom"){
+          player.jumping = false;
+          player.grounded = true;
+        }     
+      });
+  
+      if(player.grounded){
+        player.ys = 0;
+      }
+  }
+  
+    
+  function collisionCheck(char, plat){
+  
+    // this is how the player would appear, if removing widht/2 the player appears in the middle of the lines
+    
+    var vectorX = (char.x + (char.width/2)) - (plat.x + (plat.width/2)); // player center x with platform center x borders
+    var vectorY = (char.y + (char.height/2)) - (plat.y + (plat.height/2)); // player center y with platform center y borders
+    
+    var halfWidths = (char.width/2) + (plat.width/2); // middle center
+    var halfHeights = (char.height/2) + (plat.height/2);
+    
+    var collisionDirection = null;
+    
+    //Offset  - the amount or distance the which player is out of line.
+    //Vector - determining the position of one point in space relative to another by center
+  
+    if(Math.abs(vectorX) < halfWidths && Math.abs(vectorY) < halfHeights){
+      var offsetX = halfWidths - Math.abs(vectorX); 
+      var offsetY = halfHeights - Math.abs(vectorY);
+      if(offsetX < offsetY){
+        if(vectorX > 0){
+          //collisionDirection = "right";
+          char.x += offsetX;
+        }else{
+          //collisionDirection = "left";
+          char.x -= offsetX;
+        }
+      }else{
+        if(vectorY > 0){
+          //collisionDirection = "top"
+          //char.y += offsetY;
+        }
+          collisionDirection = "bottom";
+          char.y -= offsetY;
+        }
+    }
+    return collisionDirection;
+    
+  }
+  
+  
+  ////////////////////////////////////////////////////////* -----Bullets-----*/ 
+  
+  function createBullet(){
+    let bullet = new Bullet();
+    bullets.push(bullet);
+  }
+  
+  function drawBullet() { 
+    //bullets.forEach( bullet =>{
+    if(player.mode == "start mode" || player.mode == "red mode"){
+    
+            if(player.isWalkingTo == "right"){
+                    bullets.forEach(bullet =>{
+                    bullet.x += bullet.xs;
+                    bullet.y += bullet.ys;
+                    bullet.ys += bullet.gravity;
+                    bullet.draw();  // bullet 1
+                })   
+                } else if (player.isWalkingTo == "left") {
+    
+                    bullets.forEach(bullet =>{
+                    bullet.x -= bullet.xs;
+                    bullet.y += bullet.ys;
+                    bullet.ys += bullet.gravity;
+                    bullet.draw();   // bullet 1
+                })
+            }
+    } else if (player.mode == "blue mode"){
+    
+                if(player.isWalkingTo == "right"){
+                    bullets.forEach(bullet =>{
+                    bullet.x += bullet.xs;
+                    bullet.y += bullet.ys;
+                    bullet.ys += bullet.gravity;
+                    bullet.draw(); // bullet 2
+                })   
+                } else if (player.isWalkingTo == "left") {
+    
+                    bullets.forEach(bullet =>{
+                    bullet.x -= bullet.xs;
+                    bullet.y += bullet.ys;
+                    bullet.ys += bullet.gravity;
+                    bullet.draw();// bullet 2
+                })
+                }
+    } else if(player.mode == "green mode"){ 
+                if(player.isWalkingTo == "right"){
+    
+                    bullets.forEach(bullet =>{
+                    bullet.x += bullet.xs * 3.5;
+                    bullet.y += bullet.ys * 1.5;
+                    bullet.ys += bullet.gravity;
+                    bullet.draw(); // bullet 2 range "large"
+                })   
+                } else if (player.isWalkingTo == "left") {
+    
+                    bullets.forEach(bullet =>{
+                    bullet.x -= bullet.xs * 3.5;
+                    bullet.y += bullet.ys * 1.5; 
+                    bullet.ys += bullet.gravity;
+                    bullet.draw();// bullet 2 range // large
+                })
+            }
+        }
+    //});
+  }
+  
+  
+  ////////////////////////////////////////////////////////* -----Enemies-----*/ 
+  
+  var landing = [];
+  for(i=0; i<platforms.length; i++){
+      let landy = platforms[i].y
+      landing.push(landy);
+  }
+  var ri = Math.floor(Math.random() * landing.length);
+  console.log(landing[ri]);
+  
+  /* -----ENEMIE ONE RIGHT-----*/ 
+  
+  function createEnemie(){
+    if(!(frames % 300 === 0)) return
+    //for(i=0;i<7; i++){
+        let enemie = new Enemie();
+        enemies.push(enemie);
+    //}
+  }
+  function drawEnemie(){
+    enemies.forEach(enemie=>{
+      if(enemie.y == enemie.yFinal){
+        enemie.draw()
+      }else
+        enemie.drawInicial();
+  });
+  }
+  
+  /* -----ENEMIE TWO LEFT-----*/// Review this line
+  
+  function createEnemieTwo(){
+    if(!(frames % 300 === 0)) return
+    //for(i=0;i<7; i++){
+        let enemieTwo = new EnemieTwo();
+        enemies.push(enemieTwo);
+    //}
+  }
+  function drawEnemieTwo(){
+    enemies.forEach(enemieTwo=>{
+      if(enemieTwo.y == enemieTwo.yFinal){
+        enemieTwo.draw()
+      }else
+        enemieTwo.drawInicial();
+  });
+  }
+  
+  
+  /* -----ENEMIE THREE RIGHT-----*/ 
+  
+  function createEnemieThree(){
+    if(!(frames % 300 === 0)) return
+    //for(i=0;i<7; i++){
+        let enemieThree = new EnemieThree();
+        enemies.push(enemieThree);
+    //}
+  }
+  function drawEnemieThree(){
+    enemies.forEach(enemieThree=>{
+      if(enemieThree.y == enemieThree.yFinal){
+        enemieThree.draw()
+      }else
+        enemieThree.drawInicial();
+  });
+  }
+  
+  /* -----ENEMIE FOUR LEFT-----*/ 
+  
+  function createEnemieFour(){
+    if(!(frames % 300 === 0)) return
+    //for(i=0;i<7; i++){
+        let enemieFour = new EnemieFour();
+        enemies.push(enemieFour);
+    //}
+  }
+  function drawEnemieFour(){
+    enemies.forEach(enemieFour=>{
+      if(enemieFour.y == enemieFour.yFinal){
+        enemieFour.draw()
+      }else
+        enemieFour.drawInicial();
+  });
+  }
+  
+  /* -----ENEMIE FIVE RIGHT-----*/ 
+  
+  function createEnemieFive(){
+    if(!(frames % 300 === 0)) return
+    //for(i=0;i<7; i++){
+        let enemieFive = new EnemieFive();
+        enemies.push(enemieFive);
+    //}
+  }
+  function drawEnemieFive(){
+    enemies.forEach(enemieFive=>{
+      if(enemieFive.y == enemieFive.yFinal){
+        enemieFive.draw()
+      }else
+        enemieFive.drawInicial();
+  });
+  }
+  
+  /* -----ENEMIE SIX LEFT-----*/ 
+  
+  function createEnemieSix(){
+    if(!(frames % 300 === 0)) return
+    //for(i=0;i<7; i++){
+        let enemieSix = new EnemieSix();
+        enemies.push(enemieSix);
+    //}
+  }
+  function drawEnemieSix(){
+    enemies.forEach(enemieSix=>{
+      if(enemieSix.y == enemieSix.yFinal){
+        enemieSix.draw()
+      }else
+        enemieSix.drawInicial();
+  });
+  }
+  
+  /* -----Creating all enemies at once-----*/ 
+  
+  
+  function drawEnemies() {
+    drawEnemie();
+            drawEnemieTwo();
+            drawEnemieThree();
+            drawEnemieFour();
+            drawEnemieFive();
+            drawEnemieSix();
+      
+        }  
+    function createEnemies() { 
+    createEnemie();
+    createEnemieTwo();
+    createEnemieThree();
+    createEnemieFour();
+    createEnemieFive();
+    createEnemieSix();
+    }
+    
+  
+  
+  /////////////////////////////////////////////////////
+  //updating creatingenemie function (params) {
+      
+  
+  ///this goes in helpers
+
+  function createEnemie(){
+    console.log("Dentro de creacion del mostro")
+     if(!(frames % 100 === 0)) return
+     for(i=0;i<7; i++){
+       let enemie = new Enemie(i, platforms[i]);
+       //enemie.createMonster();
+       enemies.push(enemie)
+     }
+    }
+
+    
+
+    function drawEnemies() {
+      enemies.forEach(enemie=>{
+        if(enemie.grounded){
+            enemie.draw()
+        }else
+            enemie.drawInicial();
+        });
+    }
+        
+    function createEnemies() {
+        if(!(frames % 300 == 0)) return
+        for(i=0;i<7; i++){
+        enemies.push(new Enemie( enemies[i],platforms[i]));
+        }
+    }    
+
+
+
+
+    // la del profe
+    function drawEnemies() {
+        //drawEnemie();
+                // drawEnemieTwo();
+                // drawEnemieThree();
+                // drawEnemieFour();
+                // drawEnemieFive();
+                // drawEnemieSix();
+          enemies.forEach(enemie=>{
+              if(enemie.grounded){
+                  enemie.draw()
+              }else
+                  enemie.drawInicial();
+              });
+            }
+        function createEnemies() {
+            if(!(frames % 300 == 0)) return
+            //for(i=0;i<7; i++){
+            enemies.push(new Enemie(platforms[5]));
+            //}
+        //createEnemie();
+        // createEnemieTwo();
+        // createEnemieThree();
+        // createEnemieFour();
+        // createEnemieFive();
+        // createEnemieSix();
+        }
